@@ -9,38 +9,38 @@ import { Typewrite } from "@/components/Typewrite/Typewrite";
 
 export default function Home() {
   return (
-    <>
+    <main className="flex flex-col">
       <div
         id="home"
-        className="flex  flex-col justify-around items-center w-full h-screen gap-4 p-4"
+        className="flex  flex-col justify-around items-center w-full h-screen  max-md:h-full p-4"
       >
         <div className="flex flex-col w-96 justify-center items-center gap-4">
           <div className="avatar">
-            <div className="w-24 mask mask-hexagon-2">
+            <div className="w-24 mask mask-hexagon-2 max-md:w-48">
               <img src="https://lh3.googleusercontent.com/a/ACg8ocKDA6DW8XorTUveVakbKZZotc83UcNsCz4Fhm1bh_vJBoOFwPQ3=s288-c-no" />
             </div>
           </div>
 
           <div className="text-center">
-            <h3 className="text-3xl font-extrabold">Gabriel SCruz</h3>
+            <h3 className="text-3xl font-extrabold max-md:text-4xl">Gabriel SCruz</h3>
             <Typewrite
               words={["Engenheiro De Software", "Apaixonado Por Programação"]}
             />
           </div>
 
           <div className=" flex flex-row gap-2 text-center my-4">
-            <FaLinkedinIn className="w-6 h-6 hover:animate-pulse hover:text-primary" />
-            <FaFacebookF className="w-6 h-6 hover:animate-pulse hover:text-primary" />
-            <FaYoutube className="w-6 h-6 hover:animate-pulse hover:text-primary" />
-            <FaGithubAlt className="w-6 h-6 hover:animate-pulse hover:text-primary" />
+            <FaLinkedinIn className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
+            <FaFacebookF className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
+            <FaYoutube className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
+            <FaGithubAlt className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
           </div>
 
-          <button className="btn btn-primary rounded-badge">contrate-me</button>
+          <button className="btn max-md:btn-lg btn-primary rounded-badge">contrate-me</button>
         </div>
         <Scrollbar sectionId="about" />
       </div>
 
-      <div id="about" className="w-full h-screen">
+      <div id="about" className="w-full h-screen max-md:h-full">
         <div className="flex  flex-col justify-around items-center w-full h-screen gap-4 p-4 ">
           <div className="flex w-full h-80 max-md:flex-col justify-center items-center gap-4 ">
             <div
@@ -57,7 +57,7 @@ export default function Home() {
 
             <div id="right" className=" w-full">
               <div id="dialogo" className="chat chat-start  h-full w-full">
-                <div className="chat-bubble max-md:cha chat-footer">
+                <div className="chat-bubble chat-footer max-md:text-lg">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Necessitatibus rem eius inventore sequi, nostrum eaque optio
                   provident placeat rerum at officiis deleniti, mollitia
@@ -131,6 +131,6 @@ export default function Home() {
       </div>
       <div id="experiencia" className="w-full h-screen bg-green-500"></div>
       <div id="teste2" className="w-full h-screen bg-red-500"></div>
-    </>
+    </main>
   );
 }

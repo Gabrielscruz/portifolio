@@ -24,7 +24,7 @@ export function Sidebar() {
           !isOpen ? "w-20 max-md:hidden" : "w-52 max-md:w-20"
         )}
       >
-        <div className="font-extrabold text-2xl p-2">
+        <div className="font-extrabold text-2xl p-2 max-md:text-3xl">
           G<strong className="text-primary">.</strong>
         </div>
 
@@ -38,7 +38,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineHome className="w-6 h-6" />
+              <HiOutlineHome className="w-6 h-6 max-md:w-12 max-md:h-12" />
               {isOpen && <span className="max-md:hidden">Home</span>}
             </button>
 
@@ -50,7 +50,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineUser className="w-6 h-6" />
+              <HiOutlineUser className="w-6 h-6 max-md:w-12 max-md:h-12" />
               {isOpen && <span className="max-md:hidden">Sobre</span>}
             </button>
 
@@ -62,7 +62,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineBriefcase className="w-6 h-6" />
+              <HiOutlineBriefcase className="w-6 h-6 max-md:w-12 max-md:h-12" />
               {isOpen && <span className="max-md:hidden">Experiencia</span>}
             </button>
             
@@ -75,7 +75,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineFolder className="w-6 h-6" />
+              <HiOutlineFolder className="w-6 h-6 max-md:w-12 max-md:h-12" />
               {isOpen && <span className="max-md:hidden">Projetos</span>}
             </button>
             <button
@@ -86,14 +86,14 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineChatBubbleLeftRight className="w-6 h-6" />
+              <HiOutlineChatBubbleLeftRight className="w-6 h-6 max-md:w-12 max-md:h-12" />
               {isOpen && <span className="max-md:hidden">Contato</span>}
             </button>
           </div>
         </div>
 
         <div className="flex w-full h-36 text-nowrap justify-start items-start">
-          <span className="text-sm rotate-90 text-primary">2024 - 2019</span>
+          <span className="text-sm rotate-90 text-primary max-md:w-12 max-md:text-lg">2024 - 2019</span>
         </div>
       </div>
 
@@ -104,7 +104,7 @@ export function Sidebar() {
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <HiBars3BottomRight className="w-6 h-6 hover:text-primary" />
+        <HiBars3BottomRight className="w-6 h-6 max-md:w-12 max-md:h-12 hover:text-primary" />
       </button>
     </aside>
   );

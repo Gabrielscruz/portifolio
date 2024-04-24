@@ -43,6 +43,6 @@ export function Typewrite({ words}: TypewriteProps) {
       }, []);
     
     return (
-        <div><span id="typewriter" className="text-xl font-normal font-mono"></span><strong className="animate-ping"> __</strong></div>
+        <div><span id="typewriter" className="text-xl font-normal font-mono max-md:text-2xl"></span><strong className="animate-ping"> __</strong></div>
     )
 }

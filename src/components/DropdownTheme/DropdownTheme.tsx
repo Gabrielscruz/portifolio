@@ -54,7 +54,7 @@ export function DropdownTheme() {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          className="h-5 w-5 stroke-current md:hidden"
+          className="h-5 w-5 max-md:h-10 max-md:w-10 stroke-current md:hidden"
         >
           <path
             strokeLinecap="round"
@@ -96,7 +96,7 @@ export function DropdownTheme() {
                       ) : (
                         <span className="w-[16px] h-[16px]" />
                       )}
-                      <span className="flex-grow text-sm">{theme}</span>
+                      <span className="flex-grow text-sm max-md:text-lg">{theme}</span>
                       <span
                         className="flex h-full flex-shrink-0 flex-wrap gap-1"
                         data-svelte-h="svelte-dkjulf"

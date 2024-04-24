@@ -19,7 +19,7 @@ export function Scrollbar({ sectionId }: ScrollbarProps) {
     <button
       type="button"
       onClick={scrollToDiv}
-      className="rounded-full h-8 w-6 transition-all border-[1px] border-base-content hover:border-primary"
+      className="rounded-full h-8 w-6 max-md:hidden transition-all border-[1px] border-base-content hover:border-primary"
     >
       <div className="w-1 h-2 rounded-full m-auto animate-bounce bg-primary" ref={minhaDivRef}/>
     </button>
