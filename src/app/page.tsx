@@ -6,11 +6,12 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { Typewrite } from "@/components/Typewrite/Typewrite";
+import { Title } from "@/components/title/Title";
 
 export default function Home() {
   return (
     <main className="flex flex-col">
-      <div
+      <article
         id="home"
         className="flex  flex-col justify-around items-center w-full h-screen  max-md:h-full p-4"
       >
@@ -22,7 +23,9 @@ export default function Home() {
           </div>
 
           <div className="text-center">
-            <h3 className="text-3xl font-extrabold max-md:text-4xl">Gabriel SCruz</h3>
+            <h1 className="text-3xl font-extrabold max-md:text-4xl">
+              Gabriel Da Silva Cruz
+            </h1>
             <Typewrite
               words={["Engenheiro De Software", "Apaixonado Por Programação"]}
             />
@@ -35,100 +38,56 @@ export default function Home() {
             <FaGithubAlt className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
           </div>
 
-          <button className="btn max-md:btn-lg btn-primary rounded-badge">contrate-me</button>
+          <button className="btn max-md:btn-lg btn-primary rounded-badge">
+            contrate-me
+          </button>
         </div>
         <Scrollbar sectionId="about" />
-      </div>
+      </article>
 
-      <div id="about" className="w-full h-screen max-md:h-full">
-        <div className="flex  flex-col justify-around items-center w-full h-screen gap-4 p-4 ">
-          <div className="flex w-full h-80 max-md:flex-col justify-center items-center gap-4 ">
-            <div
-              id="left"
-              className="flex flex-col justify-start items-center align-top gap-"
-            >
-              <h3 className="text-primary text-2xl font-extrabold ">
-                Sobre Mim
-              </h3>
-              <div className="w-28 mask mask-circle m-4 max-md:hidden">
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocKDA6DW8XorTUveVakbKZZotc83UcNsCz4Fhm1bh_vJBoOFwPQ3=s288-c-no" />
-              </div>
-            </div>
-
-            <div id="right" className=" w-full">
-              <div id="dialogo" className="chat chat-start  h-full w-full">
-                <div className="chat-bubble chat-footer max-md:text-lg">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Necessitatibus rem eius inventore sequi, nostrum eaque optio
-                  provident placeat rerum at officiis deleniti, mollitia
-                  consequatur iusto veniam perferendis ipsa incidunt architecto!
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Deleniti, iste accusamus, explicabo molestias optio
-                  perferendis perspiciatis tenetur tempora assumenda magni cum
-                  error ut ipsam placeat sit obcaecati architecto beatae minus?
-                </div>
-              </div>
-            </div>
-            <div id="habilidades" className="flex  flex-col max-md:flex-row flex-wrap min-w-60 gap-4">
-              <div className="flex flex-col w-full">
-                <span className="flex  justify-between items-center gap-4">
-                  <strong>Front End</strong> <strong>85%</strong>
-                </span>
-                <progress
-                  className="progress progress-success"
-                  value="85"
-                  max="100"
-                ></progress>
-              </div>
-
-              <div className="flex flex-col  w-full">
-                <span className="flex  justify-between items-center gap-4">
-                  <strong>Back End</strong> <strong>80%</strong>
-                </span>
-                <progress
-                  className="progress progress-secondary"
-                  value="80"
-                  max="100"
-                ></progress>
-              </div>
-
-              <div className="flex flex-col  w-full">
-                <span className="flex  justify-between items-center gap-4">
-                  <strong>RPA</strong> <strong>75%</strong>
-                </span>
-                <progress
-                  className="progress progress-info"
-                  value="75"
-                  max="100"
-                ></progress>
-              </div>
-
-              <div className="flex flex-col  w-full">
-                <span className="flex  justify-between items-center gap-4">
-                  <strong>Mobile</strong> <strong>65%</strong>
-                </span>
-                <progress
-                  className="progress progress-primary"
-                  value="65"
-                  max="100"
-                ></progress>
-              </div>
-
-              <div className="flex flex-col  w-full">
-                <span className="flex  justify-between items-center gap-4">
-                  <strong>IU/UX Designer</strong> <strong>58%</strong>
-                </span>
-                <progress
-                  className="progress progress-warning"
-                  value="58"
-                  max="100"
-                ></progress>
-              </div>
-            </div>
+      <article
+        id="about"
+        className="flex  flex-col gap-4 items-center   w-full h-screen max-md:h-full px-10"
+      >
+        <Title>Sobre mim</Title>
+        <div className="flex w-full flex-row  max-md:flex-col max-md:text-2xl justify-center items-center">
+          <div className="flex flex-col w-full h-full">
+            <span className="mockup-code p-4">
+              <code>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum,
+                officiis maiores? Reprehenderit quaerat, iure odit aut
+                dignissimos, ad et culpa adipisci quae corporis aspernatur
+                facilis nemo! Quasi, nemo natus. Consectetur. Lorem ipsum dolor
+                sit amet consectetur adipisicing elit. Sapiente architecto ipsam
+                asperiores nihil veritatis magnam, voluptatibus rem voluptatum
+                doloribus dolor corrupti blanditiis, amet iure dolores aperiam
+                incidunt laboriosam quam reiciendis?
+              </code>
+            </span>
+            <button className="btn btn-primary  rounded-badge my-4 w-fit">
+              Baixar CSV
+            </button>
           </div>
-          <Scrollbar sectionId="experiencia" />
+          <div className="flex w-full flex-row flex-wrap gap-2 p-2  justify-center items-center">
+            <div className="w-24 h-24 bg-blue-600 rounded-lg hover:animate-spin"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+          </div>
         </div>
-      </div>
+        <Scrollbar sectionId="about" />
+      </article>
       <div id="experiencia" className="w-full h-screen bg-green-500"></div>
       <div id="teste2" className="w-full h-screen bg-red-500"></div>
     </main>
