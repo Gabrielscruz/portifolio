@@ -38,13 +38,13 @@ export default function Home() {
           </div>
 
           <div className=" flex flex-row gap-2 text-center my-4">
-            <FaLinkedinIn className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
-            <FaFacebookF className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
-            <FaYoutube className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
-            <FaGithubAlt className="w-6 h-6 max-md:w-12 max-md:h-12 hover:animate-pulse hover:text-primary" />
+            <FaLinkedinIn className="w-6 h-6 max-md:w-8 max-md:h-8 hover:animate-pulse hover:text-primary" />
+            <FaFacebookF className="w-6 h-6 max-md:w-8 max-md:h-8 hover:animate-pulse hover:text-primary" />
+            <FaYoutube className="w-6 h-6 max-md:w-8 max-md:h-8 hover:animate-pulse hover:text-primary" />
+            <FaGithubAlt className="w-6 h-6 max-md:w-8 max-md:h-18 hover:animate-pulse hover:text-primary" />
           </div>
 
-          <button className="btn max-md:btn-lg btn-primary rounded-badge">
+          <button className="btn btn-md btn-primary rounded-badge">
             contrate-me
           </button>
         </div>

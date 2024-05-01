@@ -38,7 +38,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineHome className="w-6 h-6 max-md:w-12 max-md:h-12" />
+              <HiOutlineHome className="w-6 h-6 max-md:w-8 max-md:h-8" />
               {isOpen && <span className="max-md:hidden">Home</span>}
             </button>
 
@@ -50,7 +50,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineUser className="w-6 h-6 max-md:w-12 max-md:h-12" />
+              <HiOutlineUser className="w-6 h-6 max-md:w-8 max-md:h-8" />
               {isOpen && <span className="max-md:hidden">Sobre</span>}
             </button>
 
@@ -62,7 +62,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineBriefcase className="w-6 h-6 max-md:w-12 max-md:h-12" />
+              <HiOutlineBriefcase className="w-6 h-6 max-md:w-8 max-md:h-8" />
               {isOpen && <span className="max-md:hidden">Experiencia</span>}
             </button>
             
@@ -75,7 +75,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineFolder className="w-6 h-6 max-md:w-12 max-md:h-12" />
+              <HiOutlineFolder className="w-6 h-6 max-md:w-8 max-md:h-8" />
               {isOpen && <span className="max-md:hidden">Projetos</span>}
             </button>
             <button
@@ -86,7 +86,7 @@ export function Sidebar() {
                   : "justify-start max-md:justify-center"
               )}
             >
-              <HiOutlineChatBubbleLeftRight className="w-6 h-6 max-md:w-12 max-md:h-12" />
+              <HiOutlineChatBubbleLeftRight className="w-6 h-6 max-md:w-8 max-md:h-8" />
               {isOpen && <span className="max-md:hidden">Contato</span>}
             </button>
           </div>
@@ -104,7 +104,7 @@ export function Sidebar() {
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <HiBars3BottomRight className="w-6 h-6 max-md:w-12 max-md:h-12 hover:text-primary" />
+        <HiBars3BottomRight className="w-6 h-6 max-md:w-8 max-md:h-8 hover:text-primary" />
       </button>
     </aside>
   );
