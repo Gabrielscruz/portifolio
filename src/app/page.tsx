@@ -8,6 +8,12 @@ import {
 import { Typewrite } from "@/components/Typewrite/Typewrite";
 import { Title } from "@/components/title/Title";
 
+import { FaReact, FaNodeJs, FaGithub, FaPython } from "react-icons/fa";
+import { DiMongodb } from "react-icons/di";
+import { BiLogoTailwindCss } from "react-icons/bi";
+import { SiDuckdb, SiMicrosoftsqlserver, SiNextdotjs, SiPostgresql, SiPrisma, SiRedis, SiSelenium, SiStyledcomponents, SiTypescript } from "react-icons/si";
+
+
 export default function Home() {
   return (
     <main className="flex flex-col">
@@ -52,7 +58,7 @@ export default function Home() {
         <Title>Sobre mim</Title>
         <div className="flex w-full flex-row  max-md:flex-col max-md:text-2xl justify-center items-center">
           <div className="flex flex-col w-full h-full">
-            <span className="mockup-code p-4">
+            <span className="mockup-code p-4 ">
               <code>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum,
                 officiis maiores? Reprehenderit quaerat, iure odit aut
@@ -69,21 +75,53 @@ export default function Home() {
             </button>
           </div>
           <div className="flex w-full flex-row flex-wrap gap-2 p-2  justify-center items-center">
-            <div className="w-24 h-24 bg-blue-600 rounded-lg hover:animate-spin"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
-            <div className="w-24 h-24 bg-blue-600 rounded-lg"></div>
+            <div className="flex justify-center items-center w-24 h-24 bg-white rounded-lg hover:animate-spin shadow-md">
+              <FaReact className="w-16 h-16 text-blue-400" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-white rounded-lg hover:animate-spin shadow-md">
+              <FaNodeJs className="w-16 h-16 text-green-500" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-black rounded-lg hover:animate-spin shadow-md">
+              <SiNextdotjs className="w-16 h-16 text-white" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-black rounded-lg hover:animate-spin shadow-md">
+              <FaGithub className="w-16 h-16 text-white" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-blue-950 rounded-lg hover:animate-spin shadow-md">
+              <FaPython className="w-16 h-16 text-yellow-400" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-white rounded-lg hover:animate-spin shadow-md">
+              <DiMongodb className="w-16 h-16 text-green-400" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-blue-950 rounded-lg hover:animate-spin shadow-md">
+              <BiLogoTailwindCss className="w-16 h-16 text-blue-300" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-gray-200 rounded-lg hover:animate-spin shadow-md">
+              <SiMicrosoftsqlserver className="w-16 h-16 text-red-500" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-blue-700 rounded-lg hover:animate-spin shadow-md">
+              <SiPostgresql className="w-16 h-16 text-white" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-green-500 rounded-lg hover:animate-spin shadow-md">
+              <SiSelenium className="w-16 h-16 text-white" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-yellow-300 rounded-lg hover:animate-spin shadow-md">
+              <SiStyledcomponents className="w-16 h-16 text-pink-500" />
+            </div>
+       
+            <div className="flex justify-center items-center w-24 h-24 bg-black rounded-lg hover:animate-spin shadow-md">
+              <SiDuckdb className="w-16 h-16 text-yellow-300" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-white rounded-lg hover:animate-spin shadow-md">
+              <SiPrisma className="w-16 h-16 text-blue-950" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-red-500 rounded-lg hover:animate-spin shadow-md">
+              <SiRedis className="w-16 h-16 text-white" />
+            </div>
+            <div className="flex justify-center items-center w-24 h-24 bg-white rounded-lg hover:animate-spin shadow-md">
+              <SiTypescript className="w-16 h-16 text-blue-500" />
+            </div>
+            
           </div>
         </div>
         <Scrollbar sectionId="about" />
