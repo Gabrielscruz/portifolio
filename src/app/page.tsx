@@ -29,7 +29,7 @@ export default function Home() {
           </div>
 
           <div className="text-center">
-            <h1 className="text-3xl font-extrabold max-md:text-4xl">
+            <h1 className="text-3xl font-extrabold max-md:text-xl">
               Gabriel Da Silva Cruz
             </h1>
             <Typewrite
@@ -99,10 +99,10 @@ export default function Home() {
             <div className="flex justify-center items-center w-24 h-24 bg-gray-200 rounded-lg hover:animate-spin shadow-md">
               <SiMicrosoftsqlserver className="w-16 h-16 text-red-500" />
             </div>
-            <div className="flex justify-center items-center w-24 h-24 bg-blue-700 rounded-lg hover:animate-spin shadow-md">
+            <div className="flex justify-center items-center w-24 h-24 bg-blue-800 rounded-lg hover:animate-spin shadow-lg">
               <SiPostgresql className="w-16 h-16 text-white" />
             </div>
-            <div className="flex justify-center items-center w-24 h-24 bg-green-500 rounded-lg hover:animate-spin shadow-md">
+            <div className="flex justify-center items-center w-24 h-24 bg-green-500 rounded-lg hover:animate-spin shadow-lg">
               <SiSelenium className="w-16 h-16 text-white" />
             </div>
             <div className="flex justify-center items-center w-24 h-24 bg-yellow-300 rounded-lg hover:animate-spin shadow-md">
