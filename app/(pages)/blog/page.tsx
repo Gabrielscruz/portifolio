@@ -1,72 +1,87 @@
-import { Card } from '@/components/Card';
-import { Section } from '@/components/Section';
-import { Badge } from '@/components/Badge';
+import React from 'react';
+import Link from 'next/link';
 import { getBlogPosts } from '@/lib/sanity.queries';
 import { urlFor } from '@/lib/sanity';
-import { BlogClient } from './BlogClient';
-import { cookies } from 'next/headers';
-
-type Locale = 'en' | 'pt';
+import { BlogClient, type BlogPostItem } from './BlogClient';
+import { getResolvedLocale, type Locale } from '@/lib/locale';
 
 interface BlogPost {
-  _id: string; title: string; slug?: string; isFeatured?: boolean;
-  category?: string; summary?: string; coverImage?: { asset: { _ref: string } };
-  publishedAt?: string; readTimeMinutes?: number; externalUrl?: string;
+  _id: string;
+  title: string;
+  slug?: string;
+  isFeatured?: boolean;
+  category?: string;
+  summary?: string;
+  coverImage?: { asset: { _ref: string } };
+  publishedAt?: string;
+  readTimeMinutes?: number;
+  externalUrl?: string;
 }
 
 const i18n = {
   en: {
-    pageTitle: 'Blog & Insights', pageSubtitle: 'Exploring the frontiers of software architecture, data engineering and intelligent automation to create resilient systems.',
-    featuredBadge: 'FEATURED', readTime: 'min read', readFull: 'Read full article',
-    viewAll: 'View all articles', newsletterLabel: 'Newsletter',
-    newsletterTitle: 'Stay up to date with the future of technology',
-    newsletterDesc: 'Receive exclusive insights on software architecture and automation directly to your email. No spam, just knowledge.',
-    subscribeBtn: 'Subscribe', emailPlaceholder: 'your@email.com',
+    pageTitle: 'Articles & Technical Insights',
+    pageSubtitle: 'Exploring software architecture, cloud microservices, and practical production automation.',
+    featuredBadge: 'FEATURED ARTICLE',
+    readTime: 'min read',
+    readFull: 'Read Article',
+    recentLabel: 'Recent Articles',
+    viewAll: 'View all articles',
+    newsletterLabel: 'TECHNICAL NEWSLETTER',
+    newsletterTitle: 'Receive software engineering insights directly in your inbox',
+    newsletterDesc: 'No spam, zero fluff. Just practical lessons learned from production distributed systems and workflow automation.',
+    subscribeBtn: 'Subscribe',
+    emailPlaceholder: 'your@email.com',
     categories: ['Architecture', 'Data Engineering', 'Automation', 'Cloud'],
-    allLabel: 'All',
+    allLabel: 'All Articles',
+    cmsButton: 'Manage via CMS Studio',
   },
   pt: {
-    pageTitle: 'Blog & Insights', pageSubtitle: 'Explorando as fronteiras da arquitetura de software, engenharia de dados e automação inteligente para criar sistemas resilientes.',
-    featuredBadge: 'DESTAQUE', readTime: 'min de leitura', readFull: 'Ler artigo completo',
-    viewAll: 'Ver todos os artigos', newsletterLabel: 'Newsletter',
-    newsletterTitle: 'Mantenha-se atualizado com o futuro da tecnologia',
-    newsletterDesc: 'Receba insights exclusivos sobre arquitetura de software e automação diretamente no seu e-mail. Sem spam, apenas conhecimento.',
-    subscribeBtn: 'Inscrever-se', emailPlaceholder: 'seu@email.com',
+    pageTitle: 'Artigos & Insights Técnicos',
+    pageSubtitle: 'Explorando arquitetura de software, microsserviços em nuvem e automação prática em produção.',
+    featuredBadge: 'ARTIGO EM DESTAQUE',
+    readTime: 'min de leitura',
+    readFull: 'Ler Artigo',
+    recentLabel: 'Artigos Publicados',
+    viewAll: 'Ver todos os artigos',
+    newsletterLabel: 'NEWSLETTER TÉCNICA',
+    newsletterTitle: 'Receba novos artigos de engenharia diretamente no seu e-mail',
+    newsletterDesc: 'Sem spam, sem enrolação. Apenas lições práticas de sistemas distribuídos, arquitetura limpa e automações em produção.',
+    subscribeBtn: 'Inscrever-se',
+    emailPlaceholder: 'seu@email.com',
     categories: ['Architecture', 'Data Engineering', 'Automation', 'Cloud'],
-    allLabel: 'Tudo',
+    allLabel: 'Todos os Artigos',
+    cmsButton: 'Gerenciar no CMS Studio',
   },
 };
 
 const fallbackPosts: Record<Locale, BlogPost[]> = {
   en: [
-    { _id: 'b1', title: 'The Future of Workflow Automation with n8n and Generative AI', isFeatured: true, category: 'Automation', publishedAt: '2024-01-28', readTimeMinutes: 12, summary: 'How we use n8n to orchestrate complex flows integrating LLMs, proprietary APIs and legacy systems to scale operations intelligently.' },
-    { _id: 'b2', title: 'Scalable Microservices Architecture', category: 'Architecture', publishedAt: '2024-01-24', readTimeMinutes: 8, summary: 'Essential patterns for building systems that handle millions of requests per second.' },
-    { _id: 'b3', title: 'Cloud Data Engineering: AWS vs GCP', category: 'Cloud', publishedAt: '2024-01-18', readTimeMinutes: 15, summary: 'A deep technical analysis of the best managed services for Big Data in 2024.' },
-    { _id: 'b4', title: 'Automated Testing Strategies for CI/CD', category: 'Automation', publishedAt: '2024-01-12', readTimeMinutes: 10, summary: 'How to reduce deploy time from hours to minutes without compromising software quality.' },
+    { _id: 'b1', slug: 'n8n-generative-ai', title: 'The Future of Workflow Automation with n8n and AI', isFeatured: true, category: 'Automation', publishedAt: '2024-01-28', readTimeMinutes: 12, summary: 'How we use n8n to orchestrate complex flows integrating LLMs, proprietary APIs and legacy systems to scale operations intelligently.' },
+    { _id: 'b2', slug: 'scalable-microservices', title: 'Scalable Microservices Architecture in Production', category: 'Architecture', publishedAt: '2024-01-24', readTimeMinutes: 8, summary: 'Essential patterns for building high-availability systems that handle high concurrency without degradation.' },
+    { _id: 'b3', slug: 'aws-vs-gcp-data', title: 'Cloud Data Engineering: AWS vs GCP in Practice', category: 'Cloud', publishedAt: '2024-01-18', readTimeMinutes: 15, summary: 'A deep technical comparison of the best managed cloud services for real-time ETL pipelines and cost efficiency.' },
+    { _id: 'b4', slug: 'automated-testing-cicd', title: 'Automated Testing Strategies for Resilient CI/CD', category: 'Automation', publishedAt: '2024-01-12', readTimeMinutes: 10, summary: 'How to reduce deploy time from hours to minutes while keeping software quality and regression checks airtight.' },
   ],
   pt: [
-    { _id: 'b1', title: 'O Futuro da Automação de Workflows com n8n e IA Generativa', isFeatured: true, category: 'Automation', publishedAt: '2024-01-28', readTimeMinutes: 12, summary: 'Como utilizamos n8n para orquestrar fluxos complexos integrando LLMs, APIs proprietárias e sistemas legados para escalar operações com inteligência.' },
-    { _id: 'b2', title: 'Arquitetura de Microsserviços Escaláveis', category: 'Architecture', publishedAt: '2024-01-24', readTimeMinutes: 8, summary: 'Padrões essenciais para construir sistemas que suportam milhões de requisições por segundo.' },
-    { _id: 'b3', title: 'Engenharia de Dados na Nuvem: AWS vs GCP', category: 'Cloud', publishedAt: '2024-01-18', readTimeMinutes: 15, summary: 'Uma análise técnica profunda sobre os melhores serviços gerenciados para Big Data em 2024.' },
-    { _id: 'b4', title: 'Estratégias de Testes Automatizados em CI/CD', category: 'Automation', publishedAt: '2024-01-12', readTimeMinutes: 10, summary: 'Como reduzir o tempo de deploy de horas para minutos sem comprometer a qualidade do software.' },
+    { _id: 'b1', slug: 'n8n-ia-generativa', title: 'O Futuro da Automação de Processos com n8n e IA', isFeatured: true, category: 'Automation', publishedAt: '2024-01-28', readTimeMinutes: 12, summary: 'Como estruturamos fluxos avançados no n8n conectando APIs proprietárias, inteligência artificial e bancos de dados para escalar operações.' },
+    { _id: 'b2', slug: 'microsservicos-escalaveis', title: 'Arquitetura de Microsserviços Escaláveis em Produção', category: 'Architecture', publishedAt: '2024-01-24', readTimeMinutes: 8, summary: 'Padrões essenciais para desenvolver sistemas distribuídos resilientes, com alta concorrência e monitoramento contínuo.' },
+    { _id: 'b3', slug: 'aws-vs-gcp-dados', title: 'Engenharia de Dados em Nuvem: AWS na Prática', category: 'Cloud', publishedAt: '2024-01-18', readTimeMinutes: 15, summary: 'Análise aprofundada dos melhores serviços gerenciados para pipelines de ETL em tempo real e eficiência de custos.' },
+    { _id: 'b4', slug: 'testes-cicd', title: 'Estratégias de Testes Automatizados para CI/CD', category: 'Automation', publishedAt: '2024-01-12', readTimeMinutes: 10, summary: 'Como reduzir o tempo de deploy de horas para minutos mantendo a qualidade de código e cobertura contra regressões.' },
   ],
 };
 
-const fallbackImages: Record<string, string> = {
-  b1: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDgBWpKfdKE8VgyFhUfWxmNEo8ODoNC_ARSviQxpntcfbi4KUfe1eDHHMcVWJwml8oLNbjLDtnWbQz7EhqyZP_E178v7R0BojoNcdcf3RZczZhyAfV8cSKJA2k8wc05wKHfzSvxAoi_NDBG6VFe8GA874sSuRSkr4yMck0v6TnsleVSxpaOSa7nvIf6ReiaOErHCkZj7ksF1J5NP9AbhDZFAZaTTpkphqi4UUJITGcfKfw9u-u2TAC',
-  b2: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXhi-ZU302thc71I59PjRBH6VxOfs5Hd82U41cxU7HRgz4gLn7j3VQG0g7ZtJAt6u7_Dm7GkoGy8ml0f2wRKDGRUsrFxHWo8Uk1dEu8c8K-IGVSukJe_HCywpy-3MnaenMQvUnM1Igay7qh-AOEPOKKJjI-jEeJua0Ygbua_KUrF3IJ3mw8gP8oKyCNw9FX00k105HG2m6N9go2UtKP1s12aT6Id5PnnD5M9kH74GZMG85MN25_-HR',
-  b3: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDyvmssX58gWZW4sbStQEMBN21UW9ubsWSJRcwNoniud1FR2wAomyX2HvQDaZ6xzMzc26LbhvPdZOlfkaKnUd_hv312ICL19GCnSbw789Z1TaVw_3JL3PEabQ4LuYTmIZly868QU5-gy4yFNkfaT9-ophuhYgZuXoG0-NN7JbY9sOl5Wm6KC_p8UAZdn8HPbLno8t-11IJk_F0xkTrNYh3u9LFuvyBamm0BwxEQWU1IFM9y2wRmiMd1',
-  b4: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPjGlz48FaqzOQ_z58IZ6bTpSoVIOABcY2Bm3md54T9fRflq_FYey8ghOAInKEpsvRXLFft7TjkATDTNeVqYqLjQLWwvuuLnhmFsdGJ6xBbsBt8GYjFINHr2oWAo_GXavcombGHx0ZYgKeehSEF5LYdduU0Ztqg3X_YJgQNIBvB3S5ZxvshIlIju2tlgxn6_KAWc5aZPcQdVOmh-QiFGHOzEBwy05gk5ycut9GnuKSfh22zP8EFl',
-};
-
-function getImageUrl(post: BlogPost): string {
-  if (post.coverImage) { try { return urlFor(post.coverImage).width(800).url(); } catch { /* noop */ } }
-  return fallbackImages[post._id] ?? '';
-}
-
-function formatDate(dateStr?: string, locale?: Locale): string {
+function formatDate(dateStr?: string, locale: Locale = 'pt') {
   if (!dateStr) return '';
-  return new Date(dateStr).toLocaleDateString(locale === 'pt' ? 'pt-BR' : 'en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString(locale === 'pt' ? 'pt-BR' : 'en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
 }
 
 interface BlogPageProps {
@@ -75,98 +90,112 @@ interface BlogPageProps {
 
 export default async function Blog({ searchParams }: BlogPageProps) {
   const { lang } = await searchParams;
-  const cookieStore = await cookies();
-  const cookieLocale = cookieStore.get('locale')?.value;
-  const locale: Locale = (lang ?? cookieLocale) === 'pt' ? 'pt' : 'en';
+  const locale: Locale = await getResolvedLocale(lang);
   const t = i18n[locale];
 
   const postsData = await getBlogPosts(locale).catch(() => null);
-  const posts: BlogPost[] = postsData?.length ? postsData : fallbackPosts[locale];
+  const rawPosts: BlogPost[] = postsData?.length ? postsData : fallbackPosts[locale];
 
-  const featured = posts.find((p) => p.isFeatured) ?? posts[0];
-  const regularPosts = posts.filter((p) => !p.isFeatured).slice(0, 3);
+  const getImageUrl = (p: BlogPost) => {
+    if (p.coverImage) {
+      try {
+        return urlFor(p.coverImage).width(800).url();
+      } catch {
+        // fallback
+      }
+    }
+    return 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDmtcYoXJ9yYgP4gVbGnO5blvgW_5wUIy0sEq-LYJCwo3Yp-TnVwaJmHdzV3MWwTfPFCK5a_3OuWYgCqtk0X3d-_jpTilMkb--pyCHAf17tedolblKJp8E4TRhpLZogqMQh0CA4bnfbxl1pn_0MchS33L4yxhJYUpJRLg15FZ9sxDEr-UBcZXHYZ9IVy8lm_7tc8FZWz-bt9yb52rv-C2YMdc6s_vcYsrbpT6KtK1lo9g4gRcCPZ6';
+  };
+
+  const clientPosts: BlogPostItem[] = rawPosts.map((p) => ({
+    _id: p._id,
+    title: p.title,
+    slug: p.slug,
+    isFeatured: p.isFeatured,
+    category: p.category,
+    summary: p.summary,
+    imageUrl: getImageUrl(p),
+    publishedAt: p.publishedAt,
+    formattedDate: formatDate(p.publishedAt, locale),
+    readTimeMinutes: p.readTimeMinutes,
+    externalUrl: p.externalUrl,
+  }));
 
   return (
-    <>
-      <main className="pt-32 pb-24 relative z-10">
-        {/* Hero */}
-        <Section.Root className="text-center mb-16 !py-0">
-          <h1 className="font-display-xl text-3xl md:text-display-xl text-gradient mb-4">{t.pageTitle}</h1>
-          <Section.Subtitle className="mx-auto">{t.pageSubtitle}</Section.Subtitle>
-        </Section.Root>
-
-        {/* Search & Categories (client) */}
-        <BlogClient categories={t.categories} allLabel={t.allLabel} />
-
-        {/* Featured Post */}
-        {featured && (
-          <Section.Root className="mb-20 !py-0">
-            <Card.Root className="overflow-hidden !rounded-[32px] !p-0 grid md:grid-cols-2 group border-none" hoverEffect={false}>
-              <div className="relative overflow-hidden h-64 md:h-full">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-                <div className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url('${getImageUrl(featured)}')` }} />
-              </div>
-              <div className="p-8 md:p-12 flex flex-col justify-center bg-surface-container/40">
-                <div className="flex items-center gap-2 mb-6">
-                  <Badge variant="primary">{t.featuredBadge}</Badge>
-                  {featured.readTimeMinutes && <span className="text-on-surface-variant font-label-sm text-xs">• {featured.readTimeMinutes} {t.readTime}</span>}
-                </div>
-                <h2 className="font-headline-lg text-3xl md:text-4xl text-on-surface mb-6 leading-tight">{featured.title}</h2>
-                <p className="text-on-surface-variant mb-8 line-clamp-3">{featured.summary}</p>
-                <a className="inline-flex items-center gap-2 text-primary font-title-md text-xl hover:translate-x-1 transition-transform" href={featured.externalUrl ?? '#'} target={featured.externalUrl ? '_blank' : undefined} rel="noopener noreferrer">
-                  {t.readFull} <span className="material-symbols-outlined">arrow_forward</span>
-                </a>
-              </div>
-            </Card.Root>
-          </Section.Root>
-        )}
-
-        {/* Post Grid */}
-        <Section.Root className="!py-0">
-          <div className="grid md:grid-cols-3 gap-8">
-            {regularPosts.map((post) => (
-              <Card.Root key={post._id} className="!p-0 border-none group">
-                <div className="relative h-48 overflow-hidden rounded-t-2xl">
-                  <div className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" style={{ backgroundImage: `url('${getImageUrl(post)}')` }} />
-                </div>
-                <div className="p-6 flex flex-col flex-grow bg-surface-container/40 rounded-b-2xl">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-primary font-label-sm text-xs uppercase tracking-wider">{post.category}</span>
-                    <span className="text-on-surface-variant font-label-sm text-xs">{formatDate(post.publishedAt, locale)}</span>
-                  </div>
-                  <h3 className="font-title-md text-xl text-on-surface mb-4 group-hover:text-primary transition-colors">{post.title}</h3>
-                  <p className="text-on-surface-variant text-sm mb-6 line-clamp-2">{post.summary}</p>
-                  <div className="mt-auto flex items-center gap-2 text-on-surface font-label-sm text-xs">
-                    <span className="material-symbols-outlined text-primary text-[18px]">schedule</span>
-                    {post.readTimeMinutes} {t.readTime}
-                  </div>
-                </div>
-              </Card.Root>
-            ))}
+    <main className="min-h-screen pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-16">
+      {/* ── HEADER MODERNO DO BLOG TÉCNICO ── */}
+      <section className="rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border border-purple-500/30 p-6 sm:p-10 shadow-xl">
+        <div className="max-w-3xl space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-400/40 text-teal-300 font-pixel text-[10px]">
+            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+            <span>★ ARTIGOS TÉCNICOS &amp; APRENDIZADOS ★</span>
           </div>
-          <div className="mt-16 text-center">
-            <a href="#" className="inline-flex items-center gap-2 border border-outline-variant/30 bg-surface-container-highest hover:bg-surface-container-high text-on-surface px-8 py-4 rounded-2xl transition-colors">
-              {t.viewAll} <span className="material-symbols-outlined text-primary">expand_more</span>
-            </a>
+          <h1 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
+            {t.pageTitle}
+          </h1>
+          <p className="font-sans text-base sm:text-lg text-purple-200/90 leading-relaxed">
+            {t.pageSubtitle}
+          </p>
+          <div className="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono">
+            <span className="px-3 py-1 bg-purple-950/60 border border-purple-500/30 rounded-lg text-purple-200">
+              Arquitetura &amp; Boas Práticas
+            </span>
+            <span className="px-3 py-1 bg-purple-950/60 border border-purple-500/30 rounded-lg text-purple-200">
+              Automações &amp; Cloud
+            </span>
+            <Link
+              href="/studio"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-xs transition-all shadow-[0_0_12px_rgba(45,212,191,0.3)]"
+            >
+              <span>✎</span>
+              <span>{t.cmsButton}</span>
+            </Link>
           </div>
-        </Section.Root>
+        </div>
+      </section>
 
-        {/* Newsletter */}
-        <Section.Root className="mt-32 !py-0">
-          <Card.Root className="relative !p-12 md:!p-20 !rounded-[40px] overflow-hidden text-center" hoverEffect={false}>
-            <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <span className="text-primary font-label-sm text-xs uppercase tracking-[0.2em] mb-6 block">{t.newsletterLabel}</span>
-              <h2 className="font-headline-lg text-3xl md:text-4xl text-on-surface mb-6">{t.newsletterTitle}</h2>
-              <p className="font-body-md text-on-surface-variant mb-10">{t.newsletterDesc}</p>
-              <form className="flex flex-col md:flex-row gap-4 items-start" action="#">
-                <input className="flex-grow bg-black/40 border border-outline-variant/30 rounded-2xl px-6 py-4 text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-1 focus:ring-primary" placeholder={t.emailPlaceholder} type="email" name="email" />
-                <button type="submit" className="px-8 py-4 rounded-2xl bg-primary text-on-primary font-semibold hover:shadow-[0_0_20px_rgba(221,183,255,0.4)] transition-shadow">{t.subscribeBtn}</button>
-              </form>
-            </div>
-          </Card.Root>
-        </Section.Root>
-      </main>
-    </>
+      {/* ── FILTROS, BUSCA & LISTAGEM DINÂMICA DE ARTIGOS ── */}
+      <BlogClient
+        posts={clientPosts}
+        categories={t.categories}
+        allLabel={t.allLabel}
+        locale={locale}
+        readTimeLabel={t.readTime}
+        readFullLabel={t.readFull}
+        featuredBadgeLabel={t.featuredBadge}
+        recentLabel={t.recentLabel}
+      />
+
+      {/* ── NEWSLETTER TÉCNICA ── */}
+      <section className="rounded-2xl bg-gradient-to-b from-[#15072c] to-[#090314] border border-purple-500/35 p-8 sm:p-12 text-center space-y-4 shadow-2xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-400/40 font-pixel text-[10px] text-teal-300">
+          <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+          <span>★ {t.newsletterLabel} ★</span>
+        </div>
+        <h3 className="font-sans text-2xl md:text-3xl text-white font-extrabold tracking-tight">
+          {t.newsletterTitle}
+        </h3>
+        <p className="text-sm sm:text-base text-purple-200/90 max-w-xl mx-auto font-sans leading-relaxed">
+          {t.newsletterDesc}
+        </p>
+        <form
+          action="#"
+          className="flex flex-col sm:flex-row gap-3 items-center justify-center max-w-md mx-auto pt-2"
+        >
+          <input
+            type="email"
+            placeholder={t.emailPlaceholder}
+            required
+            className="w-full sm:flex-1 bg-[#0a0216] border border-purple-500/40 focus:border-teal-400 rounded-xl px-4 py-3 text-sm text-white placeholder:text-purple-400/50 font-sans outline-none transition-colors"
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-xs whitespace-nowrap cursor-pointer transition-all shadow-[0_0_15px_rgba(45,212,191,0.3)]"
+          >
+            {t.subscribeBtn}
+          </button>
+        </form>
+      </section>
+    </main>
   );
 }

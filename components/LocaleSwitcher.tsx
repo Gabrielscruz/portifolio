@@ -3,15 +3,45 @@
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useCallback, useTransition } from 'react';
 
-export function LocaleSwitcher() {
+interface LocaleSwitcherProps {
+  initialLocale?: 'en' | 'pt';
+}
+
+export function LocaleSwitcher({ initialLocale }: LocaleSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const currentLocale = searchParams.get('lang') ?? 'en';
+
+  // Determina o idioma atual considerando searchParams > initialLocale > detecção do navegador
+  const getDetectedLocale = (): 'en' | 'pt' => {
+    const langParam = searchParams.get('lang');
+    if (langParam === 'pt' || langParam === 'en') return langParam;
+
+    if (initialLocale === 'pt' || initialLocale === 'en') return initialLocale;
+
+    if (typeof window !== 'undefined') {
+      const match = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/);
+      if (match && (match[1] === 'pt' || match[1] === 'en')) {
+        return match[1] as 'en' | 'pt';
+      }
+
+      const navLang = (navigator.language || '').toLowerCase();
+      if (navLang.startsWith('pt')) return 'pt';
+
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.toLowerCase();
+      if (tz.includes('sao_paulo') || tz.includes('brazil') || tz.includes('recife') || tz.includes('manaus')) {
+        return 'pt';
+      }
+    }
+
+    return 'pt';
+  };
+
+  const currentLocale = getDetectedLocale();
 
   const switchLocale = useCallback(
-    (locale: string) => {
+    (locale: 'en' | 'pt') => {
       // Salva no cookie (1 ano)
       document.cookie = `locale=${locale};path=/;max-age=${60 * 60 * 24 * 365};SameSite=Lax`;
 

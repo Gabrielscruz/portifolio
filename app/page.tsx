@@ -1,174 +1,484 @@
-import { Card } from '@/components/Card';
-import { Section } from '@/components/Section';
-import { Badge } from '@/components/Badge';
-import { Button } from '@/components/Button';
-import { List, ListItem } from '@/components/List';
-import { HeroGraphic } from '@/components/HeroGraphic';
+import React from 'react';
 import Link from 'next/link';
-import { getHero, getCompetencies, getSiteConfig } from '@/lib/sanity.queries';
+import { getResolvedLocale, type Locale } from '@/lib/locale';
+import {
+  PixelHero,
+  PixelSection,
+  PixelCitySkyline,
+  PixelBentoGrid,
+  BentoItem,
+} from '@/components/PixelArt';
+import { getHero, getCompetencies } from '@/lib/sanity.queries';
 
-type Locale = 'en' | 'pt';
-
-const fallbackHero: Record<Locale, object> = {
-  en: {
-    tagline: 'Architecting the Future', title: 'Software Architect',
-    subtitle: 'Data Engineering, Automation & Cloud Infrastructure',
-    description: 'Technology professional with 6+ years of experience in software development, system architecture, data integration, and cloud infrastructure.',
-    yearsExperience: 6, automationFocus: 100,
-    quote: '"Simplicity is the ultimate sophistication. I build systems that are as maintainable as they are powerful."',
-    primaryCta: 'View Experience', secondaryCta: 'Get in Touch',
-    builtForScaleTitle: 'Built for Scale',
-    builtForScaleDescription: "Combining deep technical knowledge with business acumen to deliver software that evolves with your enterprise.",
-    builtForScaleItems: ['Modern Microservices Architecture', 'Automated CI/CD Workflows', 'Enterprise Data Orchestration'],
-  },
+/**
+ * Textos limpos, autênticos e profissionais inspirados no PixelLab.ai:
+ * - Sem exageros ("sistema que nunca quebra")
+ * - Gabriel como engenheiro de software que joga RPG nas horas vagas (não mestre)
+ * - Elementos selecionados de pixel art em harmonia com design moderno
+ */
+const copy = {
   pt: {
-    tagline: 'Arquitetando o Futuro', title: 'Arquiteto de Software',
-    subtitle: 'Engenharia de Dados, Automação & Infraestrutura Cloud',
-    description: 'Profissional de tecnologia com 6+ anos de experiência em desenvolvimento de software, arquitetura de sistemas e infraestrutura em nuvem.',
-    yearsExperience: 6, automationFocus: 100,
-    quote: '"Simplicidade é a sofisticação máxima. Construo sistemas tão manuteníveis quanto poderosos."',
-    primaryCta: 'Ver Experiência', secondaryCta: 'Entrar em Contato',
-    builtForScaleTitle: 'Construído para Escalar',
-    builtForScaleDescription: 'Combinando profundo conhecimento técnico com visão de negócio para entregar software que evolui com a sua empresa.',
-    builtForScaleItems: ['Arquitetura de Microsserviços Moderna', 'Workflows CI/CD Automatizados', 'Orquestração de Dados Empresariais'],
+    // Top Bar Status
+    playerClass: 'Engenheiro de Software & Arquiteto de Soluções',
+    missionsCount: '40+ Projetos & Deploys',
+    experienceCount: '6+ Anos em Produção',
+    statusReady: 'DISPONÍVEL PARA PROJETOS',
+
+    // Árvore de Capacidades
+    skillsTag: 'ESPECIALIDADES TÉCNICAS',
+    skillsTitle: 'O Que Eu Construo',
+    skillsSubtitle:
+      'Soluções completas com arquitetura limpa, alta performance e foco no valor de negócio.',
+
+    // Resultados & Métricas Reais
+    statsTag: 'IMPACTO & CONFIABILIDADE',
+    statsTitle: 'Engenharia com Foco em Resultados',
+    statsSubtitle:
+      'Compromisso com código legível, entregas consistentes e infraestrutura estável.',
+    statsItems: [
+      'Entregas ágeis com arquitetura limpa e manutenível',
+      'Comunicação direta, transparente e colaborativa',
+      'Aplicações rápidas e responsivas para web e mobile',
+      'Microsserviços resilientes preparados para escalar com segurança',
+    ],
+    powerLevelVal: '99.9% Uptime',
+    powerLevelLabel: 'Foco em arquiteturas estáveis, monitoradas e escaláveis',
+    expYearsVal: '6+ Anos',
+    expYearsLabel: 'Experiência prática em produção',
+    savingsVal: 'R$ 40k+ / ano',
+    savingsLabel: 'Economizados com automações n8n e integrações',
+    savingsQuote:
+      '"Meu foco é automatizar tarefas manuais repetitivas e desenvolver softwares que geram impacto real e mensurável."',
+
+    // Hobbies
+    hobbiesTag: 'ALÉM DO TERMINAL',
+    hobbiesTitle: 'Interesses & Hobbies',
+    hobbiesSubtitle:
+      'O que me inspira e recarrega a criatividade fora do ambiente de trabalho.',
+
+    // Chamada Final
+    bossTag: 'CONTATO DIRETO',
+    bossTitle: 'Vamos conversar sobre o seu próximo projeto?',
+    bossSubtitle:
+      'Estou à disposição para novos desafios técnicos, consultoria e desenvolvimento de softwares de alto impacto.',
+    recruitBtn: 'ENTRAR EM CONTATO',
+    whatsappBtn: 'FALAR NO WHATSAPP',
+  },
+  en: {
+    playerClass: 'Software Engineer & Solutions Architect',
+    missionsCount: '40+ Projects & Deploys',
+    experienceCount: '6+ Years in Production',
+    statusReady: 'AVAILABLE FOR WORK',
+
+    skillsTag: 'CORE EXPERTISE',
+    skillsTitle: 'What I Build',
+    skillsSubtitle:
+      'Complete end-to-end solutions built with clean architecture, high speed, and business impact.',
+
+    statsTag: 'IMPACT & RELIABILITY',
+    statsTitle: 'Engineering Driven by Real Value',
+    statsSubtitle:
+      'Commitment to maintainable code, agile delivery, and robust infrastructure.',
+    statsItems: [
+      'Agile releases with clean and documented architecture',
+      'Clear, honest, and direct technical collaboration',
+      'High-performance, responsive web and mobile interfaces',
+      'Resilient microservices engineered to scale safely',
+    ],
+    powerLevelVal: '99.9% Uptime',
+    powerLevelLabel: 'Focus on stable, monitored, and resilient cloud architectures',
+    expYearsVal: '6+ Years',
+    expYearsLabel: 'Production coding & system scaling',
+    savingsVal: 'R$ 40k+ / year',
+    savingsLabel: 'Saved through workflow automations and integrations',
+    savingsQuote:
+      '"My focus is eradicating manual bottlenecks and crafting fast, reliable software that drives measurable savings."',
+
+    hobbiesTag: 'BEYOND THE CODE',
+    hobbiesTitle: 'Passions & Downtime',
+    hobbiesSubtitle:
+      'What sparks my curiosity and creative energy outside the development workstation.',
+
+    bossTag: 'GET IN TOUCH',
+    bossTitle: 'Interested in collaborating together?',
+    bossSubtitle:
+      'I am available to discuss new technical challenges, architectural consulting, and full-stack software development.',
+    recruitBtn: 'GET IN TOUCH',
+    whatsappBtn: 'CHAT ON WHATSAPP',
   },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fallbackCompetencies: Record<Locale, any[]> = {
-  en: [
-    { _id: '1', icon: 'architecture', title: 'Software Architecture', description: 'Defining structural blueprints for high-availability systems.', badges: ['DDD', 'SOLID'] },
-    { _id: '2', icon: 'database', title: 'Data Engineering', description: 'Streamlining data pipelines, ETL processes, and real-time integrations.', badges: ['Spark', 'Kafka'] },
-    { _id: '3', icon: 'terminal', title: 'Full Stack Backend', description: 'Building robust APIs with a focus on clean code and performance.', badges: ['Go', 'Python'] },
-    { _id: '4', icon: 'cloud', title: 'Cloud (AWS/Docker)', description: 'Deploying and managing containerized workloads in cloud-native environments.', badges: ['EKS', 'Terraform'] },
-  ],
+const skillsList: Record<Locale, BentoItem[]> = {
   pt: [
-    { _id: '1', icon: 'architecture', title: 'Arquitetura de Software', description: 'Definindo blueprints estruturais para sistemas de alta disponibilidade.', badges: ['DDD', 'SOLID'] },
-    { _id: '2', icon: 'database', title: 'Engenharia de Dados', description: 'Otimizando pipelines de dados, processos ETL e integrações em tempo real.', badges: ['Spark', 'Kafka'] },
-    { _id: '3', icon: 'terminal', title: 'Backend Full Stack', description: 'Construindo APIs robustas com foco em código limpo e performance.', badges: ['Go', 'Python'] },
-    { _id: '4', icon: 'cloud', title: 'Cloud (AWS/Docker)', description: 'Implantando e gerenciando workloads containerizados em ambientes cloud-native.', badges: ['EKS', 'Terraform'] },
+    {
+      id: 'backend',
+      icon: 'dns',
+      title: 'APIs & Microsserviços Resilientes',
+      desc: 'Desenvolvimento de servidores robustos com Node.js, NestJS e Go. Arquitetura em camadas, autenticação segura e filas assíncronas.',
+      badges: ['Node.js', 'NestJS', 'Go', 'REST APIs', 'Microsserviços', 'SOLID'],
+      highlight: 'APIs preparadas para concorrência e alta disponibilidade',
+    },
+    {
+      id: 'cloud',
+      icon: 'cloud_done',
+      title: 'Nuvem AWS & Containers Docker',
+      desc: 'Configuração de infraestrutura em nuvem (EC2, ECS, S3), conteinerização com Docker, proxies reversos Nginx e deploys contínuos.',
+      badges: ['AWS', 'Docker', 'Nginx', 'Linux', 'CI/CD'],
+      highlight: 'Ambientes isolados e monitorados em produção 24/7',
+    },
+    {
+      id: 'automation',
+      icon: 'sync_alt',
+      title: 'Automação Sistemática & Integrações',
+      desc: 'Orquestração de processos empresariais com n8n, webhooks e APIs de faturamento fiscal (NF-e/NFS-e), eliminando tarefas manuais.',
+      badges: ['n8n', 'Webhooks', 'Integrações Fiscais', 'SEFAZ', 'ETL'],
+      highlight: 'Mais de R$ 40 mil/ano economizados em processos',
+    },
+    {
+      id: 'frontend',
+      icon: 'devices',
+      title: 'Aplicações Web & Mobile',
+      desc: 'Interfaces interativas, rápidas e com navegação fluida em Next.js, React e React Native com TypeScript e Tailwind CSS.',
+      badges: ['React', 'Next.js', 'React Native', 'TypeScript', 'Tailwind'],
+      highlight: 'Design responsivo e excelente experiência do usuário',
+    },
+    {
+      id: 'db',
+      icon: 'database',
+      title: 'Bancos de Dados & Modelagem',
+      desc: 'Estruturação eficiente de dados relacionais e não relacionais. Queries otimizadas, migrações seguras e backups automatizados.',
+      badges: ['PostgreSQL', 'SQL Server', 'MongoDB', 'Redis', 'Prisma'],
+      highlight: 'Modelagem voltada para integridade e velocidade',
+    },
+    {
+      id: 'data',
+      icon: 'insights',
+      title: 'Pipelines de Dados & IA',
+      desc: 'Extração inteligente de dados com Python, web scraping ético e uso de inteligência artificial aplicada para otimizar fluxos de trabalho.',
+      badges: ['Python', 'Web Scraping', 'Machine Learning', 'Dashboards'],
+      highlight: 'Inteligência de dados aplicada ao software',
+    },
+  ],
+  en: [
+    {
+      id: 'backend',
+      icon: 'dns',
+      title: 'Resilient APIs & Microservices',
+      desc: 'Engineering scalable backend services with Node.js, NestJS, and Go. Layered architecture, secure authentication, and messaging queues.',
+      badges: ['Node.js', 'NestJS', 'Go', 'REST APIs', 'Microservices', 'SOLID'],
+      highlight: 'Engineered for high concurrency and zero-downtime',
+    },
+    {
+      id: 'cloud',
+      icon: 'cloud_done',
+      title: 'AWS Cloud & Docker Containers',
+      desc: 'Production cloud deployments on AWS (EC2, ECS, S3), Docker containerization, Nginx reverse proxies, and automated CI/CD pipelines.',
+      badges: ['AWS', 'Docker', 'Nginx', 'Linux', 'CI/CD'],
+      highlight: 'Isolated, monitored 24/7 production infrastructure',
+    },
+    {
+      id: 'automation',
+      icon: 'sync_alt',
+      title: 'Workflow Automation & Integrations',
+      desc: 'Complex workflow orchestration with n8n, webhooks, and government fiscal APIs (NF-e/NFS-e) to eliminate manual business bottlenecks.',
+      badges: ['n8n', 'Webhooks', 'Fiscal APIs', 'ETL Pipelines'],
+      highlight: 'Over BRL 40,000 / year saved in manual operations',
+    },
+    {
+      id: 'frontend',
+      icon: 'devices',
+      title: 'Web & Mobile Applications',
+      desc: 'Interactive, responsive, and blazing-fast user interfaces in Next.js, React, and React Native with TypeScript and Tailwind CSS.',
+      badges: ['React', 'Next.js', 'React Native', 'TypeScript', 'Tailwind'],
+      highlight: 'Mobile-first responsive UX and smooth navigation',
+    },
+    {
+      id: 'db',
+      icon: 'database',
+      title: 'Databases & Data Modeling',
+      desc: 'Reliable schema design across SQL and NoSQL engines. Query indexing, safe migration pipelines, and automated backup routines.',
+      badges: ['PostgreSQL', 'SQL Server', 'MongoDB', 'Redis', 'Prisma'],
+      highlight: 'Engineered for strict integrity and fast queries',
+    },
+    {
+      id: 'data',
+      icon: 'insights',
+      title: 'Data Pipelines & Applied AI',
+      desc: 'Data extraction pipelines using Python, web scraping, and generative AI models integrated into core software workflows.',
+      badges: ['Python', 'Web Scraping', 'Machine Learning', 'Dashboards'],
+      highlight: 'Pragmatic data science applied to software products',
+    },
   ],
 };
 
-interface HomeProps {
+const hobbiesList: Record<
+  Locale,
+  { icon: string; title: string; tag: string; desc: string }[]
+> = {
+  pt: [
+    {
+      icon: 'casino',
+      title: 'Jogador de RPG de Mesa & Games',
+      tag: 'COOPERAÇÃO & ESTRATÉGIA',
+      desc: 'Aventuras em equipe com amigos: raciocínio tático, pensamento analítico e colaboração mútua para superar desafios complexos.',
+    },
+    {
+      icon: 'sports_esports',
+      title: 'Games Retrô & PC Gamer',
+      tag: 'ENTUSIASTA',
+      desc: 'Apreciação por clássicos pixel art e RPGs eletrônicos, além de montagem de hardware e computadores de alta performance.',
+    },
+    {
+      icon: 'palette',
+      title: 'Desenho & Pixel Art',
+      tag: 'CRIATIVIDADE VISUAL',
+      desc: 'Interesse por estética retrô e design visual, que apoiam o olhar apurado para tipografia, espaçamento e UX nas aplicações.',
+    },
+    {
+      icon: 'movie_filter',
+      title: 'Animes & Cultura Pop',
+      tag: 'HISTÓRIAS',
+      desc: 'Fã de sagas bem construídas, evolução contínua, disciplina e dedicação para superar metas.',
+    },
+  ],
+  en: [
+    {
+      icon: 'casino',
+      title: 'Tabletop RPG Player & Gamer',
+      tag: 'COOPERATION & STRATEGY',
+      desc: 'Party adventures with friends: tactical problem-solving, structured thinking, and close teamwork to tackle challenges.',
+    },
+    {
+      icon: 'sports_esports',
+      title: 'Retro Gaming & PC Rigs',
+      tag: 'ENTHUSIAST',
+      desc: 'Passionate about pixel art classics and video game RPGs, alongside custom PC hardware building and tuning.',
+    },
+    {
+      icon: 'palette',
+      title: 'Drawing & Pixel Art Aesthetics',
+      tag: 'CREATIVITY',
+      desc: 'Interest in visual arts and retro gaming palettes, giving keen attention to typography, spacing, and front-end polish.',
+    },
+    {
+      icon: 'movie_filter',
+      title: 'Anime & Pop Culture',
+      tag: 'NARRATIVE',
+      desc: 'Appreciation for character growth arcs, discipline, persistent learning, and tackling complex milestones.',
+    },
+  ],
+};
+
+interface HomePageProps {
   searchParams: Promise<{ lang?: string }>;
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+export default async function Home({ searchParams }: HomePageProps) {
   const { lang } = await searchParams;
-  const locale: Locale = lang === 'pt' ? 'pt' : 'en';
+  const locale: Locale = await getResolvedLocale(lang);
 
-  const [heroData, competenciesData, siteConfig] = await Promise.all([
+  const t = copy[locale];
+
+  // Tenta carregar dados do Sanity com fallback elegante
+  await Promise.all([
     getHero(locale).catch(() => null),
     getCompetencies(locale).catch(() => null),
-    getSiteConfig().catch(() => null),
   ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const hero = (heroData ?? fallbackHero[locale]) as any;
-  const competencies = competenciesData?.length ? competenciesData : fallbackCompetencies[locale];
+  const skills = skillsList[locale];
+  const hobbies = hobbiesList[locale];
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-24 hero-gradient">
-        <div className="absolute inset-0 tech-grid-bg pointer-events-none opacity-40"></div>
-        <div className="container max-w-container-max mx-auto px-margin-mobile md:px-gutter relative z-10 grid grid-cols-12 gap-gutter">
-          <div className="col-span-12 lg:col-span-8 flex flex-col justify-center gap-6">
-            <div className="inline-flex items-center gap-3 text-primary text-label-md uppercase tracking-[0.3em] font-bold">
-              <span className="w-12 h-0.5 bg-primary"></span>
-              {hero.tagline}
+      {/* ── BANNER CÊNICO PIXEL ART (INSPIRADO NO PIXELLAB.AI & IMAGEM DO USUÁRIO) ── */}
+      <PixelCitySkyline badgeText={locale === 'pt' ? '★ SKYLINE NOTURNO 32-BIT ★' : '★ NIGHT CITYSCAPE 32-BIT ★'} />
+
+      {/* ── HERO SECTION: APRESENTAÇÃO MODERNA E PROFISSIONAL ── */}
+      <PixelHero.Root>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <PixelHero.Stats locale={locale} />
+
+          <PixelHero.DialogueBox>
+            <PixelHero.Text locale={locale} />
+            <PixelHero.Actions locale={locale} />
+          </PixelHero.DialogueBox>
+
+          {/* Cards de Métricas Rápidas em Estilo Bento */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="p-4 rounded-xl bg-gradient-to-b from-[#130728] to-[#0a0316] border border-purple-500/25">
+              <span className="font-pixel text-[9px] text-teal-300 block mb-1">EXPERIÊNCIA</span>
+              <span className="font-sans font-bold text-lg sm:text-xl text-white block">{t.expYearsVal}</span>
+              <span className="font-sans text-xs text-purple-200/70">{locale === 'pt' ? 'Em Produção' : 'In Production'}</span>
             </div>
-            <h1 className="font-display text-display-lg-mobile md:text-display-lg text-white leading-[1.05]">
-              <span className="text-on-surface-variant">{hero.title}</span>
-            </h1>
-            <h2 className="text-headline-sm md:text-headline-md text-on-surface-variant/80 max-w-2xl font-semibold">
-              {hero.subtitle}
-            </h2>
-            <p className="text-body-lg text-on-surface-variant max-w-2xl mt-4 leading-relaxed">
-              {hero.description}
-            </p>
-            <div className="flex flex-wrap gap-5 mt-10">
-              <Link href={`/experience${locale === 'pt' ? '?lang=pt' : ''}`}>
-                <Button variant="primary">
-                  {hero.primaryCta}
-                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                </Button>
-              </Link>
-              <Link href={`/contact${locale === 'pt' ? '?lang=pt' : ''}`}>
-                <Button variant="glass">{hero.secondaryCta}</Button>
-              </Link>
+
+            <div className="p-4 rounded-xl bg-gradient-to-b from-[#130728] to-[#0a0316] border border-purple-500/25">
+              <span className="font-pixel text-[9px] text-teal-300 block mb-1">ENTREGAS</span>
+              <span className="font-sans font-bold text-lg sm:text-xl text-white block">{t.missionsCount}</span>
+              <span className="font-sans text-xs text-purple-200/70">{locale === 'pt' ? 'Projetos no Ar' : 'Live Releases'}</span>
             </div>
-          </div>
-          <div className="hidden lg:flex col-span-4 items-center justify-center relative">
-            <HeroGraphic />
+
+            <div className="p-4 rounded-xl bg-gradient-to-b from-[#130728] to-[#0a0316] border border-purple-500/25">
+              <span className="font-pixel text-[9px] text-amber-300 block mb-1">ECONOMIA</span>
+              <span className="font-sans font-bold text-lg sm:text-xl text-amber-300 block">{t.savingsVal}</span>
+              <span className="font-sans text-xs text-purple-200/70">{locale === 'pt' ? 'Em Automações' : 'In Automations'}</span>
+            </div>
+
+            <div className="p-4 rounded-xl bg-gradient-to-b from-[#130728] to-[#0a0316] border border-purple-500/25">
+              <span className="font-pixel text-[9px] text-purple-300 block mb-1">HOBBY</span>
+              <span className="font-sans font-bold text-lg sm:text-xl text-purple-200 block">RPG & Games</span>
+              <span className="font-sans text-xs text-purple-200/70">{locale === 'pt' ? 'Jogador nas Horas Vagas' : 'Tabletop & Retro'}</span>
+            </div>
           </div>
         </div>
-      </section>
+      </PixelHero.Root>
 
-      {/* Key Competencies Section */}
-      <Section.Root className="bg-surface-container-lowest">
-        <Section.Header className="flex flex-col md:flex-row items-end justify-between gap-8">
-          <div className="max-w-2xl">
-            <Section.Title>{locale === 'pt' ? 'Especialidades em Arquitetura & Dados' : 'Core Architecture & Data Expertise'}</Section.Title>
-            <Section.Subtitle>{locale === 'pt' ? 'Abordagem sistemática para engenharia de sistemas distribuídos complexos, garantindo confiabilidade, escalabilidade e performance.' : 'Systematic approach to engineering complex distributed systems, ensuring reliability, scalability, and performance.'}</Section.Subtitle>
+      {/* ── BENTO GRID DE CAPACIDADES TÉCNICAS (ESTILO PIXELLAB.AI) ── */}
+      <PixelSection.Root className="bg-[#090314]">
+        <PixelSection.Header>
+          <PixelSection.Tag>{t.skillsTag}</PixelSection.Tag>
+          <PixelSection.Title>{t.skillsTitle}</PixelSection.Title>
+          <PixelSection.Subtitle>{t.skillsSubtitle}</PixelSection.Subtitle>
+        </PixelSection.Header>
+
+        <PixelBentoGrid items={skills} locale={locale} />
+      </PixelSection.Root>
+
+      {/* ── IMPACTO REAL & ENGENHARIA DE SOFTWARE ── */}
+      <PixelSection.Root className="bg-[#0b0419]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Lado Esquerdo: Princípios & Práticas de Engenharia */}
+          <div className="lg:col-span-6 space-y-6">
+            <PixelSection.Tag>{t.statsTag}</PixelSection.Tag>
+            <PixelSection.Title className="!text-left">{t.statsTitle}</PixelSection.Title>
+            <PixelSection.Subtitle className="!text-left">{t.statsSubtitle}</PixelSection.Subtitle>
+
+            <div className="space-y-3.5 pt-2 font-sans text-base text-purple-100">
+              {t.statsItems.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="text-teal-400 font-pixel text-xs shrink-0 select-none mt-1">✦</span>
+                  <span className="leading-relaxed">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex gap-3">
-            <div className="w-16 h-1 bg-primary rounded-full"></div>
-            <div className="w-6 h-1 bg-white/10 rounded-full"></div>
+
+          {/* Lado Direito: Métricas Limpas & Modernas */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Card Uptime & Disponibilidade */}
+            <div className="sm:col-span-2 rounded-2xl bg-gradient-to-b from-[#140828] to-[#0d041c] border border-purple-500/30 p-6 shadow-xl">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-purple-500/20 text-[11px] font-mono text-teal-300">
+                <span>[ ARQUITETURA ESTÁVEL ]</span>
+                <span className="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  PRODUÇÃO
+                </span>
+              </div>
+              <div className="font-sans text-3xl sm:text-4xl text-white font-extrabold mb-2 tracking-tight">
+                {t.powerLevelVal}
+              </div>
+              <p className="font-sans text-sm sm:text-base text-purple-200/80 leading-relaxed">
+                {t.powerLevelLabel}
+              </p>
+            </div>
+
+            {/* Exp Box */}
+            <div className="rounded-xl bg-gradient-to-b from-[#120624] to-[#090314] border border-purple-500/25 p-5">
+              <div className="font-sans text-2xl text-white font-bold mb-1">
+                {t.expYearsVal}
+              </div>
+              <div className="font-mono text-xs text-purple-300 uppercase">
+                {t.expYearsLabel}
+              </div>
+            </div>
+
+            {/* Savings Box */}
+            <div className="rounded-xl bg-gradient-to-b from-[#120624] to-[#090314] border border-emerald-500/30 p-5">
+              <div className="font-sans text-2xl text-emerald-400 font-bold mb-1">
+                {t.savingsVal}
+              </div>
+              <div className="font-mono text-xs text-emerald-200/80 uppercase">
+                {t.savingsLabel}
+              </div>
+            </div>
+
+            {/* Citação Direta */}
+            <div className="sm:col-span-2 rounded-xl bg-purple-950/30 border border-purple-500/20 p-5">
+              <p className="font-sans text-sm sm:text-base text-purple-100 italic leading-relaxed">
+                {t.savingsQuote}
+              </p>
+            </div>
           </div>
-        </Section.Header>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {competencies.map((c: { _id: string; icon: string; title: string; description: string; badges?: string[] }) => (
-            <Card.Root key={c._id} className="!p-10 hover:bg-white/[0.08]" hoverEffect={false}>
-              <Card.Icon icon={c.icon} />
-              <Card.Title className="mt-6">{c.title}</Card.Title>
-              <Card.Description>{c.description}</Card.Description>
-              <Card.Footer>
-                {c.badges?.map((b) => <Badge key={b} variant="glass">{b}</Badge>)}
-              </Card.Footer>
-            </Card.Root>
+        </div>
+      </PixelSection.Root>
+
+      {/* ── INTERESSES & HOBBIES (ALÉM DO CÓDIGO) ── */}
+      <PixelSection.Root className="bg-[#090314]">
+        <PixelSection.Header>
+          <PixelSection.Tag>{t.hobbiesTag}</PixelSection.Tag>
+          <PixelSection.Title>{t.hobbiesTitle}</PixelSection.Title>
+          <PixelSection.Subtitle>{t.hobbiesSubtitle}</PixelSection.Subtitle>
+        </PixelSection.Header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {hobbies.map((h) => (
+            <div
+              key={h.title}
+              className="rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border border-purple-500/25 p-5 space-y-3 flex flex-col justify-between hover:border-purple-400/50 transition-all"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-lg bg-purple-950/80 border border-purple-500/40 flex items-center justify-center text-teal-300">
+                    <span className="material-symbols-outlined text-xl">{h.icon}</span>
+                  </div>
+                  <span className="font-mono text-[9px] px-2 py-0.5 rounded bg-purple-900/30 text-purple-300 border border-purple-500/20">
+                    {h.tag}
+                  </span>
+                </div>
+
+                <h3 className="font-sans font-bold text-base text-white">{h.title}</h3>
+                <p className="font-sans text-xs text-purple-200/80 leading-relaxed">{h.desc}</p>
+              </div>
+            </div>
           ))}
         </div>
-      </Section.Root>
+      </PixelSection.Root>
 
-      {/* Bento Metrics */}
-      <Section.Root className="bg-background">
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-4 mb-10 lg:mb-0">
-            <Section.Title>{hero.builtForScaleTitle}</Section.Title>
-            <Section.Subtitle className="mb-10">{hero.builtForScaleDescription}</Section.Subtitle>
-            <List>
-              {hero.builtForScaleItems?.map((item: string) => <ListItem key={item}>{item}</ListItem>)}
-            </List>
+      {/* ── CHAMADA FINAL PARA AÇÃO (ESTILO MODERNO PIXELLAB.AI) ── */}
+      <PixelSection.Root className="bg-[#06020c]">
+        <div className="max-w-3xl mx-auto rounded-3xl bg-gradient-to-b from-[#15072c] to-[#090314] border border-purple-500/35 p-8 sm:p-12 text-center space-y-6 shadow-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-400/40 font-pixel text-[10px] text-teal-300">
+            <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+            <span>{t.bossTag}</span>
           </div>
-          <div className="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card.Root className="!p-10 justify-between items-start border-none shadow-2xl" hoverEffect={true}>
-              <div className="text-display-lg text-white font-extrabold mb-2">{hero.yearsExperience}+</div>
-              <div className="text-label-md text-primary tracking-widest uppercase font-bold">{locale === 'pt' ? 'Anos de Arquitetura' : 'Years of Architecture'}</div>
-            </Card.Root>
-            <Card.Root className="bg-primary/10 !p-10 border-primary/20 justify-between relative overflow-hidden group" hoverEffect={true}>
-              <div className="relative z-10">
-                <div className="text-display-lg text-primary font-extrabold mb-2">{hero.automationFocus}%</div>
-                <div className="text-label-md text-white/80 tracking-widest uppercase font-bold">{locale === 'pt' ? 'Foco em Automação' : 'Automation Focus'}</div>
-              </div>
-              <span className="material-symbols-outlined absolute -right-6 -bottom-6 text-[160px] opacity-10 group-hover:rotate-12 transition-transform text-primary">settings_suggest</span>
-            </Card.Root>
-            <Card.Root className="md:col-span-2 !p-10 flex-col md:flex-row items-center gap-10 border-none shadow-2xl" hoverEffect={true}>
-              <div className="flex-1">
-                <h5 className="text-headline-sm text-white mb-4 font-bold">{locale === 'pt' ? 'Filosofia Arquitetural' : 'Architectural Philosophy'}</h5>
-                <p className="text-body-lg text-on-surface-variant italic leading-relaxed">{hero.quote}</p>
-              </div>
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl overflow-hidden border-2 border-white/10 flex-shrink-0 shadow-2xl">
-                <div
-                  className="w-full h-full bg-cover bg-center grayscale transition-all duration-700 group-hover:grayscale-0"
-                  style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDfWIRti_soTI9p0CEVh549PWdFIfPwRQkseVONEzo7aOt0VsuiUlK3TfNTV5Utl4gjWLrwDXMp0xB2D8wyen82_tbfb_o6w-RUBqF8vHfLAB3DW1XLGwtglzK23JlEKEDMXfGln21rFhhNgXoJTLKAA7B6Wyccpv7znjZcovQBNmFAdkX2wjwWKQ-5-bm5rL6SJyzUgqcJlT0qygg2u5JutaUOoia5Wwk6VtvRi9Y8D5vAiO0cOphl')" }}
-                ></div>
-              </div>
-            </Card.Root>
+
+          <h3 className="font-sans text-2xl sm:text-3xl text-white font-extrabold tracking-tight leading-snug">
+            {t.bossTitle}
+          </h3>
+
+          <p className="font-sans text-base sm:text-lg text-purple-200 max-w-xl mx-auto leading-relaxed">
+            {t.bossSubtitle}
+          </p>
+
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <Link href={`/contact${locale === 'en' ? '?lang=en' : ''}`}>
+              <button className="px-6 py-3.5 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-sm flex items-center gap-2 transition-all shadow-[0_0_20px_rgba(45,212,191,0.35)] cursor-pointer">
+                <span>✦ {t.recruitBtn}</span>
+                <span className="material-symbols-outlined text-base">arrow_forward</span>
+              </button>
+            </Link>
+
+            <a
+              href="https://wa.me/5511958773054?text=Ol%C3%A1%20Gabriel,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 hover:text-emerald-100 border border-emerald-500/40 font-sans font-semibold text-sm flex items-center gap-2 transition-all cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>{t.whatsappBtn}</span>
+            </a>
           </div>
         </div>
-      </Section.Root>
+      </PixelSection.Root>
     </>
   );
 }

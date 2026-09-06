@@ -12,7 +12,7 @@ export async function getSiteConfig() {
 }
 
 // ─── Hero ──────────────────────────────────────────────────────────────────────
-export async function getHero(locale: Locale = 'en') {
+export async function getHero(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "hero" && locale == $locale][0]{
       tagline, title, subtitle, description,
@@ -26,7 +26,7 @@ export async function getHero(locale: Locale = 'en') {
 }
 
 // ─── Competencies ──────────────────────────────────────────────────────────────
-export async function getCompetencies(locale: Locale = 'en') {
+export async function getCompetencies(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "competency" && locale == $locale] | order(order asc){
       _id, icon, title, description, badges
@@ -37,7 +37,7 @@ export async function getCompetencies(locale: Locale = 'en') {
 }
 
 // ─── Experiences ───────────────────────────────────────────────────────────────
-export async function getExperiences(locale: Locale = 'en') {
+export async function getExperiences(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "experience" && locale == $locale] | order(order asc){
       _id, company, role, period, isCurrent,
@@ -49,7 +49,7 @@ export async function getExperiences(locale: Locale = 'en') {
 }
 
 // ─── Education ─────────────────────────────────────────────────────────────────
-export async function getEducation(locale: Locale = 'en') {
+export async function getEducation(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "education" && locale == $locale] | order(order asc){
       _id, degree, institution, period, isCurrent
@@ -60,7 +60,7 @@ export async function getEducation(locale: Locale = 'en') {
 }
 
 // ─── Certifications ────────────────────────────────────────────────────────────
-export async function getCertifications(locale: Locale = 'en') {
+export async function getCertifications(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "certification" && locale == $locale] | order(order asc){
       _id, name, level, icon
@@ -71,7 +71,7 @@ export async function getCertifications(locale: Locale = 'en') {
 }
 
 // ─── Projects ──────────────────────────────────────────────────────────────────
-export async function getProjects(locale: Locale = 'en') {
+export async function getProjects(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "project" && locale == $locale] | order(order asc){
       _id, title, "slug": slug.current, category, isFeatured,
@@ -84,14 +84,14 @@ export async function getProjects(locale: Locale = 'en') {
 }
 
 // ─── Blog Posts ────────────────────────────────────────────────────────────────
-export async function getBlogPosts(locale: Locale = 'en') {
+export async function getBlogPosts(locale: Locale = 'pt') {
   return client.fetch(
     `*[_type == "blogPost" && locale == $locale] | order(publishedAt desc){
       _id, title, "slug": slug.current, isFeatured,
       category, summary, coverImage, publishedAt, readTimeMinutes, externalUrl
     }`,
     { locale },
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 60 } }
   );
 }
 
@@ -99,9 +99,9 @@ export async function getBlogPostBySlug(slug: string) {
   return client.fetch(
     `*[_type == "blogPost" && slug.current == $slug][0]{
       _id, title, "slug": slug.current, locale,
-      category, summary, coverImage, publishedAt, readTimeMinutes, body
+      category, summary, coverImage, publishedAt, readTimeMinutes, body, externalUrl
     }`,
     { slug },
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 60 } }
   );
 }

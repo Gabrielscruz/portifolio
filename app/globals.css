@@ -245,3 +245,182 @@ body {
     border-color: #a855f7;
     box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
 }
+
+/* 32-Bit High-Resolution Retro RPG Styles - Deep Purple & DBZ Theme */
+.font-pixel {
+    font-family: 'Silkscreen', 'JetBrains Mono', monospace;
+}
+
+.font-retro {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.font-arcade {
+    font-family: 'Silkscreen', monospace;
+}
+
+/* 32-Bit JRPG Dialogue Box (Undertale Vibe, Polished 32-Bit Fidelity) */
+.undertale-box {
+    background: linear-gradient(180deg, #120726 0%, #090314 100%);
+    border: 2px solid rgba(192, 132, 252, 0.7);
+    outline: 2px solid #000000;
+    box-shadow: 0 0 0 4px rgba(126, 34, 206, 0.4), 0 20px 40px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    position: relative;
+    border-radius: 4px;
+}
+
+.undertale-box-purple {
+    background: linear-gradient(180deg, #1a0a38 0%, #0e0420 100%);
+    border: 2px solid #a855f7;
+    outline: 2px solid #07020d;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.3), 0 12px 28px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    border-radius: 4px;
+}
+
+/* 32-Bit Card with Sleek Bevel and Depth */
+.pixel-card {
+    background: linear-gradient(165deg, #170a32 0%, #0d041c 100%);
+    border: 2px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 3px 3px 0px 0px #3b0764, 6px 6px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pixel-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(216, 180, 254, 0.8);
+    box-shadow: 4px 4px 0px 0px #6b21a8, 8px 12px 24px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* 32-Bit Action Buttons - Arcade Precision */
+.pixel-btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.35rem;
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    color: #000000;
+    font-weight: 700;
+    border: 2px solid #fef3c7;
+    box-shadow: 3px 3px 0px #78350f, 0 4px 12px rgba(245, 158, 11, 0.3);
+    font-family: 'Silkscreen', monospace;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s ease-out;
+}
+
+.pixel-btn-action:hover {
+    background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #78350f, 0 6px 16px rgba(245, 158, 11, 0.45);
+}
+
+.pixel-btn-purple {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.35rem;
+    background: linear-gradient(180deg, #7e22ce 0%, #581c87 100%);
+    color: #ffffff;
+    font-weight: 700;
+    border: 2px solid #e9d5ff;
+    box-shadow: 3px 3px 0px #2e1065, 0 4px 12px rgba(126, 34, 206, 0.35);
+    font-family: 'Silkscreen', monospace;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s ease-out;
+}
+
+.pixel-btn-purple:hover {
+    background: linear-gradient(180deg, #9333ea 0%, #6b21a8 100%);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #2e1065, 0 6px 18px rgba(168, 85, 247, 0.5);
+}
+
+.pixel-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.35rem;
+    background: #110526;
+    color: #d8b4fe;
+    font-weight: 600;
+    border: 2px solid #9333ea;
+    box-shadow: 3px 3px 0px #1e0b3c;
+    font-family: 'Silkscreen', monospace;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s ease-out;
+}
+
+.pixel-btn-secondary:hover {
+    background: #250d4d;
+    color: #ffffff;
+    border-color: #c084fc;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #1e0b3c;
+}
+
+/* 32-Bit Scouter HUD */
+.scouter-screen {
+    background: radial-gradient(circle at center, rgba(147, 51, 234, 0.25) 0%, rgba(10, 3, 22, 0.95) 85%);
+    border: 2px solid #a855f7;
+    box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.25), 0 8px 24px rgba(0, 0, 0, 0.7);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scouter-grid {
+    background-image: linear-gradient(rgba(168, 85, 247, 0.12) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(168, 85, 247, 0.12) 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+
+/* 32-Bit Soul Heart (Smoother Undertale Soul) */
+.pixel-soul {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-color: #c084fc;
+    clip-path: polygon(
+        15% 0%, 40% 0%, 50% 18%, 60% 0%, 85% 0%, 100% 20%, 100% 45%, 50% 100%, 0% 45%, 0% 20%
+    );
+    animation: soul-pulse 1.4s infinite ease-in-out;
+}
+
+@keyframes soul-pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px #c084fc); }
+    50% { transform: scale(1.15); filter: drop-shadow(0 0 8px #e879f9); }
+}
+
+/* Scanlines 32-Bit Sutis */
+.scanlines-overlay {
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.15) 50%
+    );
+    background-size: 100% 3px;
+    pointer-events: none;
+}
+
+/* Blinking cursor */
+.pixel-blink {
+    animation: pixel-blink-anim 0.8s infinite steps(1);
+}
+
+@keyframes pixel-blink-anim {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}

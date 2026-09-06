@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { Suspense } from "react";
-import { cookies } from "next/headers";
+import { getResolvedLocale } from "@/lib/locale";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gabriel Silva — Software Architect",
-  description: "Technology professional with 6+ years of experience in software architecture, data engineering, automation and cloud infrastructure.",
+  title: "Gabriel Da Silva Cruz — Engenheiro de Software Sênior & Arquiteto",
+  description: "Engenheiro de Software Sênior e Arquiteto de Sistemas com 6+ anos de experiência em React, Node.js, NestJS, TypeScript, AWS, Docker, Microsserviços e Princípios SOLID.",
 };
 
 export default async function RootLayout({
@@ -15,14 +15,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const localeCookie = cookieStore.get('locale')?.value ?? 'en';
-  const isPortuguese = localeCookie === 'pt';
+  const locale = await getResolvedLocale();
+  const isPortuguese = locale === 'pt';
 
   return (
-    <html lang={localeCookie}>
+    <html lang={locale}>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..900&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body>
         <Navbar.Root>
@@ -34,7 +35,7 @@ export default async function RootLayout({
             <Navbar.Link href={isPortuguese ? "/blog?lang=pt" : "/blog"} text="Blog" />
             <Navbar.Link href={isPortuguese ? "/contact?lang=pt" : "/contact"} text={isPortuguese ? "Contato" : "Contact"} />
             <Suspense fallback={null}>
-              <LocaleSwitcher />
+              <LocaleSwitcher initialLocale={locale} />
             </Suspense>
           </Navbar.Container>
           <Navbar.Toggle />
@@ -49,10 +50,11 @@ export default async function RootLayout({
                 © 2024 Gabriel Da Silva Cruz • São Paulo, SP
               </p>
             </div>
-            <div className="flex gap-8">
-              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">LinkedIn</a>
-              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Email</a>
-              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub</a>
+            <div className="flex flex-wrap gap-6 md:gap-8 items-center">
+              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="https://www.linkedin.com/in/gabriel-da-silva-cruz-a033a23b4/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="mailto:gabriel-blz@outlook.com.br">Email</a>
+              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/5511958773054" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <a className="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/Gabrielscruz" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </div>
         </footer>
