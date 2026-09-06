@@ -81,11 +81,10 @@ export function ExperienceClient({
 
               {/* Card Moderno do Cargo */}
               <div
-                className={`p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border ${
-                  exp.isCurrent
+                className={`p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border ${exp.isCurrent
                     ? 'border-purple-400/60 shadow-[0_0_25px_rgba(168,85,247,0.15)]'
                     : 'border-purple-500/25 hover:border-purple-400/50 transition-colors'
-                }`}
+                  }`}
               >
                 {/* Cabeçalho do Card */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-4 border-b border-purple-500/20">
@@ -272,12 +271,6 @@ export function ExperienceClient({
           {i18n.ctaDesc}
         </p>
         <div className="pt-3 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/contact"
-            className="px-6 py-3 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-xs inline-flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(45,212,191,0.3)] cursor-pointer"
-          >
-            <span>✦ {i18n.ctaSecondary}</span>
-          </Link>
           <a
             href="https://wa.me/5511958773054?text=Ol%C3%A1%20Gabriel,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar!"
             target="_blank"

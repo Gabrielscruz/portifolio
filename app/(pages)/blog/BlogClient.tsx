@@ -104,11 +104,10 @@ export function BlogClient({
             <button
               type="button"
               onClick={() => setActiveCategory(null)}
-              className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                activeCategory === null
-                  ? 'bg-teal-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(45,212,191,0.4)]'
-                  : 'bg-purple-950/60 border border-purple-500/40 text-purple-200 hover:border-purple-300'
-              }`}
+              className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer ${activeCategory === null
+                ? 'bg-teal-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(45,212,191,0.4)]'
+                : 'bg-purple-950/60 border border-purple-500/40 text-purple-200 hover:border-purple-300'
+                }`}
             >
               {allLabel}
             </button>
@@ -117,35 +116,16 @@ export function BlogClient({
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
-                  activeCategory === cat
-                    ? 'bg-teal-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(45,212,191,0.4)]'
-                    : 'bg-purple-950/60 border border-purple-500/40 text-purple-200 hover:border-purple-300'
-                }`}
+                className={`font-mono text-xs px-3 py-1.5 rounded-lg transition-all cursor-pointer ${activeCategory === cat
+                  ? 'bg-teal-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(45,212,191,0.4)]'
+                  : 'bg-purple-950/60 border border-purple-500/40 text-purple-200 hover:border-purple-300'
+                  }`}
               >
                 {cat}
               </button>
             ))}
 
-            {/* Direct Link / Helper to CMS Studio */}
-            <div className="flex items-center gap-1.5 pl-2 border-l border-purple-500/30">
-              <Link
-                href="/studio"
-                className="font-mono text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-900/90 to-indigo-900/90 border border-purple-400/60 text-purple-200 hover:text-white hover:border-teal-400 transition-all flex items-center gap-1.5 shadow-sm"
-                title="Acessar o Sanity Studio para adicionar ou editar artigos"
-              >
-                <span className="text-teal-400">✎</span>
-                <span className="hidden sm:inline">CMS Studio</span>
-              </Link>
-              <button
-                type="button"
-                onClick={() => setShowCmsInfo(!showCmsInfo)}
-                className="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/40 text-purple-300 hover:text-teal-300 flex items-center justify-center text-xs font-mono cursor-pointer"
-                title="Como adicionar artigos via CMS?"
-              >
-                ?
-              </button>
-            </div>
+
           </div>
         </div>
 
@@ -168,7 +148,6 @@ export function BlogClient({
               O blog está 100% conectado ao <strong>Sanity CMS Studio</strong> embutido no projeto na rota <code className="text-teal-300 bg-purple-950 px-1 py-0.5 rounded">/studio</code>.
             </p>
             <ol className="list-decimal list-inside space-y-1 text-purple-300 pl-1">
-              <li>Clique em <strong className="text-white">CMS Studio</strong> ou acesse <Link href="/studio" className="text-teal-300 underline">/studio</Link>.</li>
               <li>No menu lateral, selecione <strong className="text-white">📝 Blog Posts</strong>.</li>
               <li>Clique no ícone de lápis/criar (<strong className="text-white">+</strong>) para adicionar um novo artigo.</li>
               <li>Preencha o idioma (pt/en), título, slug, categoria, resumo e imagem de capa.</li>

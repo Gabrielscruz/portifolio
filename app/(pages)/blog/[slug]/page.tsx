@@ -122,12 +122,6 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
             >
               ← Voltar ao Blog
             </Link>
-            <Link
-              href="/studio"
-              className="px-5 py-2.5 rounded-xl bg-teal-400 text-slate-950 text-xs font-sans font-bold hover:bg-teal-300"
-            >
-              Abrir Sanity Studio
-            </Link>
           </div>
         </div>
       </main>
@@ -172,14 +166,6 @@ export default async function BlogPostPage({ params, searchParams }: BlogPostPag
         </Link>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/studio"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-950/80 border border-purple-400/40 text-purple-200 hover:text-white hover:border-teal-400 text-xs font-mono transition-all"
-            title="Acessar painel do Sanity Studio para editar ou criar novos artigos"
-          >
-            <span className="text-teal-400">✎</span>
-            <span>Editar via CMS Studio</span>
-          </Link>
           {post.externalUrl && (
             <a
               href={post.externalUrl}

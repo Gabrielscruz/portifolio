@@ -34,7 +34,6 @@ const i18n = {
     emailPlaceholder: 'your@email.com',
     categories: ['Architecture', 'Data Engineering', 'Automation', 'Cloud'],
     allLabel: 'All Articles',
-    cmsButton: 'Manage via CMS Studio',
   },
   pt: {
     pageTitle: 'Artigos & Insights Técnicos',
@@ -51,7 +50,6 @@ const i18n = {
     emailPlaceholder: 'seu@email.com',
     categories: ['Architecture', 'Data Engineering', 'Automation', 'Cloud'],
     allLabel: 'Todos os Artigos',
-    cmsButton: 'Gerenciar no CMS Studio',
   },
 };
 
@@ -143,13 +141,7 @@ export default async function Blog({ searchParams }: BlogPageProps) {
             <span className="px-3 py-1 bg-purple-950/60 border border-purple-500/30 rounded-lg text-purple-200">
               Automações &amp; Cloud
             </span>
-            <Link
-              href="/studio"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-xs transition-all shadow-[0_0_12px_rgba(45,212,191,0.3)]"
-            >
-              <span>✎</span>
-              <span>{t.cmsButton}</span>
-            </Link>
+
           </div>
         </div>
       </section>

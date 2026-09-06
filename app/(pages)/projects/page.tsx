@@ -101,12 +101,12 @@ export default async function Projects({ searchParams }: ProjectsPageProps) {
   const personalProjects = projects.filter((p) => p.category === 'personal');
 
   const getFeaturedImageUrl = (img?: { asset: { _ref: string } }) => {
-    if (!img) return '/thinkin-platform.svg';
+    if (!img) return '/thinkin-platform.png';
     try {
       const url = urlFor(img).width(800).url();
-      return url || '/thinkin-platform.svg';
+      return url || '/thinkin-platform.png';
     } catch {
-      return '/thinkin-platform.svg';
+      return '/thinkin-platform.png';
     }
   };
 
@@ -323,44 +323,6 @@ export default async function Projects({ searchParams }: ProjectsPageProps) {
         </section>
       )}
 
-      {/* ── EDUCAÇÃO & MENTORIA TÉCNICA ── */}
-      {educationProjects.length > 0 && (
-        <section className="p-8 rounded-2xl bg-gradient-to-b from-[#160a2c] via-[#0d041c] to-[#080114] border border-purple-500/30 grid lg:grid-cols-2 gap-10 items-center">
-          <div className="space-y-6">
-            <div>
-              <div className="font-mono text-xs text-teal-300 uppercase tracking-widest mb-1 font-semibold">
-                ✦ {locale === 'pt' ? 'COMPARTILHAMENTO DE CONHECIMENTO' : 'KNOWLEDGE SHARING'} ✦
-              </div>
-              <h2 className="font-sans text-2xl sm:text-3xl text-white font-extrabold mb-2 tracking-tight">
-                {t.eduTitle}
-              </h2>
-              <p className="font-sans text-sm text-purple-200/90 leading-relaxed">
-                {t.eduSubtitle}
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {educationProjects.map((p, idx) => (
-                <div key={p._id} className="flex items-start gap-3">
-                  <div className="shrink-0 w-8 h-8 rounded-lg bg-purple-950/80 border border-purple-400/40 flex items-center justify-center font-mono text-xs text-teal-300 font-bold">
-                    {String(idx + 1).padStart(2, '0')}
-                  </div>
-                  <div>
-                    <h4 className="font-sans text-sm text-white font-bold">{p.title}</h4>
-                    <p className="font-sans text-xs text-purple-200/80 mt-0.5">{p.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <ProjectsClient
-            impactLabel={t.impactLabel}
-            impactNumber={t.impactNumber}
-            impactDesc={t.impactDesc}
-          />
-        </section>
-      )}
 
       {/* ── CTA FINAL ── */}
       <section className="rounded-2xl bg-gradient-to-b from-[#15072c] to-[#090314] border border-purple-500/35 p-8 sm:p-12 text-center space-y-4 shadow-2xl">

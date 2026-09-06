@@ -30,9 +30,8 @@ export function PixelBentoGrid({ items, locale = 'pt' }: PixelBentoGridProps) {
       {items.map((item) => (
         <div
           key={item.id}
-          className={`relative group rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border border-purple-500/25 hover:border-teal-400/50 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-[0_8px_30px_rgba(45,212,191,0.12)] ${
-            item.span ?? ''
-          }`}
+          className={`relative group rounded-2xl bg-gradient-to-b from-[#140828] to-[#0a0316] border border-purple-500/25 hover:border-teal-400/50 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-[0_8px_30px_rgba(45,212,191,0.12)] ${item.span ?? ''
+            }`}
         >
           {/* Brilho sutil no canto do card ao passar o mouse */}
           <div className="absolute top-0 right-0 w-36 h-36 bg-purple-600/10 group-hover:bg-teal-500/15 blur-2xl rounded-full transition-all duration-500 pointer-events-none" />
@@ -58,12 +57,7 @@ export function PixelBentoGrid({ items, locale = 'pt' }: PixelBentoGridProps) {
               </p>
             </div>
 
-            {/* Destaque Prático Opcional */}
-            {item.highlight && (
-              <div className="text-xs font-mono text-amber-300/90 bg-amber-950/20 border border-amber-500/30 rounded-lg px-3 py-2">
-                <span className="font-bold">✦ {isPt ? 'Destaque:' : 'Highlight:'}</span> {item.highlight}
-              </div>
-            )}
+
           </div>
 
           {/* Rodapé: Tags Técnicas Limpas com Acento Pixel */}

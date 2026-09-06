@@ -45,7 +45,7 @@ const copy = {
     powerLevelLabel: 'Foco em arquiteturas estáveis, monitoradas e escaláveis',
     expYearsVal: '6+ Anos',
     expYearsLabel: 'Experiência prática em produção',
-    savingsVal: 'R$ 40k+ / ano',
+    savingsVal: 'R$ 40k+ / mês',
     savingsLabel: 'Economizados com automações n8n e integrações',
     savingsQuote:
       '"Meu foco é automatizar tarefas manuais repetitivas e desenvolver softwares que geram impacto real e mensurável."',

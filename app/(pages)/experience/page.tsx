@@ -281,7 +281,7 @@ export default async function Experience({ searchParams }: ExperiencePageProps) 
               Tech Lead &amp; Software Architect
             </span>
             <span className="px-3 py-1 bg-emerald-950/30 border border-emerald-500/30 rounded-lg text-emerald-300">
-              +R$ 40k/ano Economizados
+              +R$ 40k/mes Economizados
             </span>
           </div>
         </div>
