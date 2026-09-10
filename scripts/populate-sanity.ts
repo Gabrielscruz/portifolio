@@ -12,7 +12,7 @@ const client = createClient({
 });
 
 const docs = [
-  // ─── SITE CONFIG ─────────────────────────────────────────────────────────────
+  // ─── SITE CONFIG ────────────────────────────────────────────────────────
   {
     _id: 'siteConfig',
     _type: 'siteConfig',
@@ -23,7 +23,7 @@ const docs = [
     linkedin: 'https://linkedin.com/in/gabrielsilva',
   },
 
-  // ─── HERO EN ─────────────────────────────────────────────────────────────────
+  // ─── HERO EN ────────────────────────────────────────────────────────────
   {
     _id: 'hero-en',
     _type: 'hero',
@@ -42,7 +42,7 @@ const docs = [
     builtForScaleItems: ['Modern Microservices Architecture', 'Automated CI/CD Workflows', 'Enterprise Data Orchestration'],
   },
 
-  // ─── HERO PT ─────────────────────────────────────────────────────────────────
+  // ─── HERO PT ────────────────────────────────────────────────────────────
   {
     _id: 'hero-pt',
     _type: 'hero',
@@ -61,19 +61,19 @@ const docs = [
     builtForScaleItems: ['Arquitetura de Microsserviços Moderna', 'Workflows CI/CD Automatizados', 'Orquestração de Dados Empresariais'],
   },
 
-  // ─── COMPETENCIES EN ─────────────────────────────────────────────────────────
+  // ─── COMPETENCIES EN ───────────────────────────────────────────────────
   { _id: 'comp-en-1', _type: 'competency', locale: 'en', order: 1, icon: 'architecture', title: 'Software Architecture', description: 'Defining structural blueprints for high-availability systems and microservices ecosystems.', badges: ['DDD', 'SOLID'] },
   { _id: 'comp-en-2', _type: 'competency', locale: 'en', order: 2, icon: 'database', title: 'Data Engineering', description: 'Streamlining data pipelines, ETL processes, and real-time integration architectures.', badges: ['Spark', 'Kafka'] },
   { _id: 'comp-en-3', _type: 'competency', locale: 'en', order: 3, icon: 'terminal', title: 'Full Stack Backend', description: 'Building robust APIs and server-side logic with a focus on clean code and performance.', badges: ['Go', 'Python'] },
   { _id: 'comp-en-4', _type: 'competency', locale: 'en', order: 4, icon: 'cloud', title: 'Cloud (AWS/Docker)', description: 'Deploying and managing containerized workloads in cloud-native environments.', badges: ['EKS', 'Terraform'] },
 
-  // ─── COMPETENCIES PT ─────────────────────────────────────────────────────────
+  // ─── COMPETENCIES PT ───────────────────────────────────────────────────
   { _id: 'comp-pt-1', _type: 'competency', locale: 'pt', order: 1, icon: 'architecture', title: 'Arquitetura de Software', description: 'Definindo blueprints estruturais para sistemas de alta disponibilidade e ecossistemas de microsserviços.', badges: ['DDD', 'SOLID'] },
   { _id: 'comp-pt-2', _type: 'competency', locale: 'pt', order: 2, icon: 'database', title: 'Engenharia de Dados', description: 'Otimizando pipelines de dados, processos ETL e arquiteturas de integração em tempo real.', badges: ['Spark', 'Kafka'] },
   { _id: 'comp-pt-3', _type: 'competency', locale: 'pt', order: 3, icon: 'terminal', title: 'Backend Full Stack', description: 'Construindo APIs robustas e lógica server-side com foco em código limpo e performance.', badges: ['Go', 'Python'] },
   { _id: 'comp-pt-4', _type: 'competency', locale: 'pt', order: 4, icon: 'cloud', title: 'Cloud (AWS/Docker)', description: 'Implantando e gerenciando workloads containerizados em ambientes cloud-native.', badges: ['EKS', 'Terraform'] },
 
-  // ─── EXPERIENCES EN ──────────────────────────────────────────────────────────
+  // ─── EXPERIENCES EN ────────────────────────────────────────────────────
   {
     _id: 'exp-en-1', _type: 'experience', locale: 'en', order: 1,
     company: 'Thinkin', role: 'Senior Software Engineer', period: 'OCT 2023 - PRESENT', isCurrent: true,
@@ -103,7 +103,7 @@ const docs = [
     description: 'Industrial operations and maintenance. This phase provided the foundation for structural thinking and logical problem-solving in complex physical environments.',
   },
 
-  // ─── EXPERIENCES PT ──────────────────────────────────────────────────────────
+  // ─── EXPERIENCES PT ────────────────────────────────────────────────────
   {
     _id: 'exp-pt-1', _type: 'experience', locale: 'pt', order: 1,
     company: 'Thinkin', role: 'Engenheiro de Software Sênior', period: 'OUT 2023 - PRESENTE', isCurrent: true,
@@ -133,37 +133,27 @@ const docs = [
     description: 'Operações e manutenção industrial. Esta fase forneceu a base para o pensamento estrutural e resolução lógica de problemas em ambientes físicos complexos.',
   },
 
-  // ─── EDUCATION EN ────────────────────────────────────────────────────────────
+  // ─── EDUCATION EN ──────────────────────────────────────────────────────
   { _id: 'edu-en-1', _type: 'education', locale: 'en', order: 1, degree: 'Postgraduate: Cloud & AI DevOps', institution: 'Impacta Tecnologia', period: '2026 - 2027', isCurrent: true },
   { _id: 'edu-en-2', _type: 'education', locale: 'en', order: 2, degree: 'Technologist: IT Management', institution: 'Higher Education Institute', period: '2017 - 2019' },
 
-  // ─── EDUCATION PT ────────────────────────────────────────────────────────────
+  // ─── EDUCATION PT ──────────────────────────────────────────────────────
   { _id: 'edu-pt-1', _type: 'education', locale: 'pt', order: 1, degree: 'Pós-Graduação: Cloud & AI DevOps', institution: 'Impacta Tecnologia', period: '2026 - 2027', isCurrent: true },
   { _id: 'edu-pt-2', _type: 'education', locale: 'pt', order: 2, degree: 'Tecnólogo: Gestão de TI', institution: 'Instituto de Ensino Superior', period: '2017 - 2019' },
 
-  // ─── CERTIFICATIONS EN ───────────────────────────────────────────────────────
+  // ─── CERTIFICATIONS EN ─────────────────────────────────────────────────
   { _id: 'cert-en-1', _type: 'certification', locale: 'en', order: 1, name: 'n8n Automation', level: 'Expert Level', icon: 'auto_fix_high' },
   { _id: 'cert-en-2', _type: 'certification', locale: 'en', order: 2, name: 'Adobe XD Design', level: 'UI/UX Foundational', icon: 'brush' },
   { _id: 'cert-en-3', _type: 'certification', locale: 'en', order: 3, name: 'ETL Mastery', level: 'Data Pipelines', icon: 'data_usage' },
   { _id: 'cert-en-4', _type: 'certification', locale: 'en', order: 4, name: 'React Native', level: 'Mobile Engineering', icon: 'smartphone' },
 
-  // ─── CERTIFICATIONS PT ───────────────────────────────────────────────────────
+  // ─── CERTIFICATIONS PT ─────────────────────────────────────────────────
   { _id: 'cert-pt-1', _type: 'certification', locale: 'pt', order: 1, name: 'Automação n8n', level: 'Nível Expert', icon: 'auto_fix_high' },
   { _id: 'cert-pt-2', _type: 'certification', locale: 'pt', order: 2, name: 'Design Adobe XD', level: 'Fundamentos UI/UX', icon: 'brush' },
   { _id: 'cert-pt-3', _type: 'certification', locale: 'pt', order: 3, name: 'Domínio de ETL', level: 'Pipelines de Dados', icon: 'data_usage' },
   { _id: 'cert-pt-4', _type: 'certification', locale: 'pt', order: 4, name: 'React Native', level: 'Engenharia Mobile', icon: 'smartphone' },
 
-  // ─── PROJECTS EN ─────────────────────────────────────────────────────────────
-  {
-    _id: 'proj-en-1', _type: 'project', locale: 'en', order: 1, isFeatured: true, category: 'featured',
-    title: 'Thinkin Custom Platform',
-    slug: { _type: 'slug', current: 'thinkin-platform' },
-    description: 'Engineered a mission-critical platform from the ground up to replace legacy enterprise software. This strategic architectural shift resulted in a ',
-    highlight: 'R$ 40,000 annual saving',
-    techStack: ['React Native', 'Node.js', 'AWS Cloud', 'PostgreSQL'],
-    caseStudyLabel: 'Case Study Breakdown',
-    projectUrl: 'https://thinkin.com.br',
-  },
+  // ─── PROJECTS EN ───────────────────────────────────────────────────────
   {
     _id: 'proj-en-2', _type: 'project', locale: 'en', order: 2, category: 'architecture',
     title: 'Enterprise n8n Workflows', icon: 'hub',
@@ -207,17 +197,7 @@ const docs = [
     caseStudyLabel: 'Play now',
   },
 
-  // ─── PROJECTS PT ─────────────────────────────────────────────────────────────
-  {
-    _id: 'proj-pt-1', _type: 'project', locale: 'pt', order: 1, isFeatured: true, category: 'featured',
-    title: 'Plataforma Customizada Thinkin',
-    slug: { _type: 'slug', current: 'plataforma-thinkin' },
-    description: 'Desenvolvi do zero uma plataforma mission-critical para substituir software legado empresarial. Essa mudança arquitetural resultou em ',
-    highlight: 'R$ 40.000 de economia anual',
-    techStack: ['React Native', 'Node.js', 'AWS Cloud', 'PostgreSQL'],
-    caseStudyLabel: 'Ver Case Completo',
-    projectUrl: 'https://thinkin.com.br',
-  },
+  // ─── PROJECTS PT ───────────────────────────────────────────────────────
   {
     _id: 'proj-pt-2', _type: 'project', locale: 'pt', order: 2, category: 'architecture',
     title: 'Workflows n8n Empresariais', icon: 'hub',
@@ -249,7 +229,7 @@ const docs = [
   {
     _id: 'proj-pt-7', _type: 'project', locale: 'pt', order: 7, category: 'education',
     title: 'Fundamentos de ETL',
-    description: 'Explorando o ciclo de vida dos dados: de entradas brutas e bagunçadas a insights limpos, estruturados e acionáveis usando Python e SQL.',
+    description: 'Explorando o ciclo de vida dos dados: de entradas brutas e bagunçadas a insights limpos, estruturados e acionáveis usando Python and SQL.',
   },
   {
     _id: 'proj-pt-8', _type: 'project', locale: 'pt', order: 8, category: 'personal',
@@ -260,7 +240,7 @@ const docs = [
     caseStudyLabel: 'Jogar agora',
   },
 
-  // ─── BLOG POSTS PT ───────────────────────────────────────────────────────────
+  // ─── BLOG POSTS PT ──────────────────────────────────────────────────────
   {
     _id: 'blog-pt-1', _type: 'blogPost', locale: 'pt', isFeatured: true,
     title: 'O Futuro da Automação de Workflows com n8n e IA Generativa',
@@ -290,7 +270,7 @@ const docs = [
     summary: 'Como reduzir o tempo de deploy de horas para minutos sem comprometer a qualidade do software.',
   },
 
-  // ─── BLOG POSTS EN ───────────────────────────────────────────────────────────
+  // ─── BLOG POSTS EN ──────────────────────────────────────────────────────
   {
     _id: 'blog-en-1', _type: 'blogPost', locale: 'en', isFeatured: true,
     title: 'The Future of Workflow Automation with n8n and Generative AI',
