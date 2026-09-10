@@ -123,6 +123,7 @@ export default async function Projects({ searchParams }: ProjectsPageProps) {
             <span className="font-pixel text-teal-400 text-sm">✦ [ARQUITETURA]</span>
             <h2 className="font-sans font-bold text-base text-purple-200 uppercase tracking-wider">{t.archTitle}</h2>
           </div>
+          <br />
 
           <div className="grid md:grid-cols-2 gap-6">
             {architectureProjects.map((p) => (
