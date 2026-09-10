@@ -25,8 +25,6 @@ const i18n = {
   en: {
     pageTitle: 'Projects & Engineering',
     pageSubtitle: 'Architecting scalable enterprise platforms, cloud backends, and high-impact automated workflows.',
-    featuredLabel: 'COMPANY PROJECT EXAMPLE',
-    featuredSuffix: 'in annual licensing costs while dramatically improving throughput and system uptime.',
     archTitle: 'Software Architecture & Cloud Deployments',
     eduTitle: 'Technical Education & Mentorship',
     eduSubtitle: 'Bridging software theory and practical engineering through courses, real-world pipelines, and direct mentorship.',
@@ -42,8 +40,6 @@ const i18n = {
   pt: {
     pageTitle: 'Projetos & Portfólio',
     pageSubtitle: 'Desenvolvimento de sistemas corporativos escaláveis, arquitetura em nuvem e automações de alto impacto.',
-    featuredLabel: 'EXEMPLO DE PROJETO CORPORATIVO',
-    featuredSuffix: 'em custos anuais de licenciamento, elevando o throughput de dados e a estabilidade do sistema.',
     archTitle: 'Arquitetura de Software & Soluções Cloud',
     eduTitle: 'Educação Técnica & Mentoria',
     eduSubtitle: 'Conectando a teoria de software à prática da engenharia através de cursos, pipelines reais e mentoria.',
@@ -60,7 +56,6 @@ const i18n = {
 
 const fallbackProjects: Record<Locale, Project[]> = {
   en: [
-    { _id: 'fp', title: 'Thinkin Custom Enterprise Platform', category: 'featured', isFeatured: true, description: 'Engineered a mission-critical platform to replace expensive third-party enterprise software. This delivered over ', highlight: 'R$ 40,000 / year saved', techStack: ['React Native', 'Node.js', 'NestJS', 'AWS Cloud', 'PostgreSQL'], caseStudyLabel: 'Explore Platform', projectUrl: 'https://thinkin.com.br' },
     { _id: 'a0', title: 'Konvix Cloud ERP & Fiscal Engine', category: 'architecture', icon: 'receipt_long', description: 'Engineered mission-critical retail ERP modules with React and Node.js. Built high-availability government tax integrations (SEFAZ) and continuous invoice generation (NF-e/NFC-e).', techStack: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'Fiscal APIs'], projectUrl: 'https://www.konvix.com.br/', caseStudyLabel: 'konvix.com.br' },
     { _id: 'a1', title: 'Enterprise n8n Workflow Ecosystem', category: 'architecture', icon: 'hub', description: 'Architected complex automation ecosystems connecting legacy CRMs with modern cloud tools across 50+ enterprise processes.', techStack: ['n8n', 'Webhooks', 'REST APIs', 'Docker'] },
     { _id: 'a2', title: 'Scalable ETL & Ingestion Pipelines', category: 'architecture', icon: 'database', description: 'Designed robust data ingestion and transformation layers for real-time analytics in high-concurrency environments.', techStack: ['Python', 'SQL', 'Docker', 'ETL'] },
@@ -71,7 +66,6 @@ const fallbackProjects: Record<Locale, Project[]> = {
     { _id: 'p1', title: 'Virtual Tabletop 3D (VTT)', category: 'personal', icon: 'sports_esports', description: 'Personal project — a 3D Virtual Tabletop for RPG sessions with friends. Built with Three.js, turn-based mechanics and 3D models.', techStack: ['Next.js', 'Three.js', 'TypeScript'], projectUrl: 'https://rpg-3d.vercel.app', caseStudyLabel: 'Live Preview' },
   ],
   pt: [
-    { _id: 'fp', title: 'Plataforma Customizada Thinkin', category: 'featured', isFeatured: true, description: 'Desenvolvi como parte da equipe da empresa uma plataforma mission-critical para substituir software de terceiros. Resultou em mais de ', highlight: 'R$ 40.000 de economia anual', techStack: ['React Native', 'Node.js', 'NestJS', 'AWS Cloud', 'PostgreSQL'], caseStudyLabel: 'Ver Plataforma', projectUrl: 'https://thinkin.com.br' },
     { _id: 'a0', title: 'Sistema Cloud ERP & Motor Fiscal Konvix', category: 'architecture', icon: 'receipt_long', description: 'Desenvolvimento de módulos de alta criticidade para o sistema ERP em nuvem da Konvix com React e Node.js. Integrações governamentais (SEFAZ), mensageria fiscal e emissão contínua de NF-e/NFC-e.', techStack: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'APIs Fiscais'], projectUrl: 'https://www.konvix.com.br/', caseStudyLabel: 'konvix.com.br' },
     { _id: 'a1', title: 'Workflows n8n Empresariais', category: 'architecture', icon: 'hub', description: 'Arquitetei ecossistemas de automação conectando CRMs legados com ferramentas cloud modernas em 50+ processos.', techStack: ['n8n', 'Webhooks', 'REST APIs', 'Docker'] },
     { _id: 'a2', title: 'Pipelines ETL Escaláveis', category: 'architecture', icon: 'database', description: 'Projetei camadas robustas de ingestão e transformação de dados para analytics em tempo real.', techStack: ['Python', 'SQL', 'Docker', 'ETL'] },
@@ -95,20 +89,9 @@ export default async function Projects({ searchParams }: ProjectsPageProps) {
   const projectsData = await getProjects(locale).catch(() => null);
   const projects: Project[] = projectsData?.length ? projectsData : fallbackProjects[locale];
 
-  const featured = projects.find((p) => p.isFeatured);
   const architectureProjects = projects.filter((p) => p.category === 'architecture');
   const educationProjects = projects.filter((p) => p.category === 'education');
   const personalProjects = projects.filter((p) => p.category === 'personal');
-
-  const getFeaturedImageUrl = (img?: { asset: { _ref: string } }) => {
-    if (!img) return '/thinkin-platform.png';
-    try {
-      const url = urlFor(img).width(800).url();
-      return url || '/thinkin-platform.png';
-    } catch {
-      return '/thinkin-platform.png';
-    }
-  };
 
   return (
     <main className="min-h-screen pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-16">
@@ -129,89 +112,9 @@ export default async function Projects({ searchParams }: ProjectsPageProps) {
             <span className="px-3 py-1 bg-purple-950/60 border border-purple-500/30 rounded-lg text-purple-200">
               40+ Entregas em Produção
             </span>
-            <span className="px-3 py-1 bg-emerald-950/30 border border-emerald-500/30 rounded-lg text-emerald-300">
-              Economia Comprovada: +R$ 40k/ano
-            </span>
           </div>
         </div>
       </section>
-
-      {/* ── PROJETO EM DESTAQUE ── */}
-      {featured && (
-        <section className="space-y-4">
-          <div className="flex items-center gap-2 border-b border-purple-500/30 pb-2">
-            <span className="font-pixel text-teal-400 text-sm">✦ [EXEMPLO CORPORATIVO]</span>
-            <h2 className="font-sans font-bold text-base text-purple-200 uppercase tracking-wider">{t.featuredLabel}</h2>
-          </div>
-
-          <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#160a2c] via-[#100422] to-[#0a0216] border border-purple-500/35 shadow-xl grid lg:grid-cols-2 gap-8 items-center">
-            {/* Imagem / Mockup */}
-            <div className="relative rounded-xl overflow-hidden border border-purple-500/40 shadow-2xl bg-[#090217] aspect-video sm:aspect-auto sm:h-72 group">
-              <img
-                src={getFeaturedImageUrl(featured.image)}
-                alt={featured.title}
-                className="w-full h-full object-cover object-left-top sm:object-center transition-transform duration-500 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0216]/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute top-3 left-3 bg-[#0a0216]/90 border border-teal-400/80 px-2.5 py-1 rounded-md font-pixel text-[9px] text-teal-300 backdrop-blur-sm shadow-md">
-                ★ IMPACTO DA EQUIPE
-              </div>
-              <div className="absolute bottom-3 right-3 bg-purple-950/90 border border-purple-400/50 px-2 py-0.5 rounded text-[10px] font-mono text-purple-200 backdrop-blur-sm">
-                Projeto Corporativo
-              </div>
-            </div>
-
-            {/* Conteúdo & Stats */}
-            <div className="space-y-4">
-              <div className="font-mono text-xs text-teal-300 tracking-wider uppercase font-semibold">
-                {locale === 'pt' ? 'Exemplo de Projeto Corporativo (Equipe)' : 'Corporate Project Example (Team)'}
-              </div>
-              <h3 className="font-sans text-2xl sm:text-3xl text-white font-extrabold tracking-tight">
-                {featured.title}
-              </h3>
-              
-              <div className="bg-purple-950/50 border border-purple-500/30 p-3 rounded-lg text-xs font-mono text-purple-200/90 italic">
-                {locale === 'pt' ? 'Nota: Projeto desenvolvido como membro da equipe de engenharia da empresa, apresentado aqui apenas como demonstração de competências técnicas.' : 'Note: Project developed as part of the company engineering team, presented here solely as a showcase of technical skills.'}
-              </div>
-
-              <p className="font-sans text-sm text-purple-100/90 leading-relaxed">
-                {featured.description}
-                {featured.highlight && (
-                  <strong className="text-teal-300 font-sans font-semibold block mt-1">
-                    ✦ {featured.highlight}
-                  </strong>
-                )}{' '}
-                {t.featuredSuffix}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {featured.techStack?.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-purple-950/60 border border-purple-400/30 text-purple-200"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {featured.projectUrl && (
-                <div className="pt-2">
-                  <a
-                    href={featured.projectUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-2.5 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-sans font-bold text-xs inline-flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(45,212,191,0.3)] cursor-pointer"
-                  >
-                    <span>{featured.caseStudyLabel ?? (locale === 'pt' ? 'Acessar Plataforma' : 'Visit Platform')}</span>
-                    <span className="material-symbols-outlined text-sm">open_in_new</span>
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── ARQUITETURA DE SOFTWARE & SOLUÇÕES CLOUD ── */}
       {architectureProjects.length > 0 && (
